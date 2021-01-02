@@ -108,7 +108,7 @@
         app:neumorph_backgroundColor="@color/black"
         android:layout_marginTop="24dp"
         app:layout_constraintTop_toTopOf="parent"
-        app:neumorph_shadowElevation="3dp"
+        app:neumorph_shadowElevation="4dp"
         app:neumorph_shapeType="pressed"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="7dp">
