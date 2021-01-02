@@ -4,54 +4,37 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/material_on_primary_emphasis_high_type"
+    android:background="#F1F1F1"
     tools:context=".MainActivity">
 
-    <soup.neumorphism.NeumorphImageButton
 
-        android:id="@+id/testbutton2"
-        style="@style/Widget.Neumorph.ImageButton"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-
-
-        android:scaleType="centerInside"
-        app:layout_constraintStart_toEndOf="@+id/testbutton3"
-        app:layout_constraintTop_toBottomOf="@+id/testcheckbox3"
-        app:neumorph_shadowColorLight="@color/white"
-        app:neumorph_shapeType="flat"
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:background="@drawable/cockpittop"
         tools:ignore="MissingConstraints">
 
 
-    </soup.neumorphism.NeumorphImageButton>
+    </FrameLayout>
 
-    <soup.neumorphism.NeumorphImageButton
-
-        android:id="@+id/testbutton3"
-        style="@style/Widget.Neumorph.ImageButton"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-
-
-        android:scaleType="centerInside"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/testbutton"
-        app:neumorph_shadowColorLight="@color/white"
-        app:neumorph_shapeType="flat"
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:background="@drawable/cockpitbottom"
+        app:layout_constraintBottom_toBottomOf="parent"
         tools:ignore="MissingConstraints">
 
-
-    </soup.neumorphism.NeumorphImageButton>
+    </FrameLayout>
 
     <soup.neumorphism.NeumorphCardView
-
         android:id="@+id/progressbarcontainer"
         style="@style/Widget.Neumorph.CardView"
 
 
         android:layout_width="59dp"
         android:layout_height="match_parent"
-        android:layout_marginVertical="25dp"
+        android:layout_marginVertical="120dp"
         android:layout_marginRight="7pt"
         android:background="@drawable/violet"
         app:layout_constraintEnd_toEndOf="parent"
@@ -65,6 +48,7 @@
             android:id="@+id/progressbar"
             style="@style/Widget.Neumorph.CardView"
             android:layout_width="0.22in"
+
             android:layout_height="match_parent"
             android:layout_marginVertical="10dp"
             android:layout_marginTop="48dp"
@@ -84,6 +68,8 @@
         style="@style/Widget.Neumorph.ImageButton"
         android:layout_width="150dp"
         android:layout_height="150dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
         android:scaleType="centerInside"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/terminal"
@@ -95,44 +81,59 @@
 
     </soup.neumorphism.NeumorphImageButton>
 
+    <soup.neumorphism.NeumorphImageButton
 
-    <soup.neumorphism.NeumorphCardView
+        android:id="@+id/testbutton3"
+        style="@style/Widget.Neumorph.ImageButton"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
 
-        android:id="@+id/terminal"
-        style="@style/CardView"
 
-        android:layout_width="329dp"
-        android:layout_height="132dp"
-        android:layout_marginVertical="25dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:scaleType="centerInside"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/testbutton"
+        app:neumorph_shadowColorLight="@color/white"
+        app:neumorph_shapeType="flat"
+        tools:ignore="MissingConstraints">
 
-        app:neumorph_backgroundColor="@color/black"
-        android:layout_marginTop="24dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:neumorph_shadowElevation="4dp"
-        app:neumorph_shapeType="pressed"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="7dp">
 
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="249dp"
-            android:layout_height="54dp"
-            android:text="TextView"
+    </soup.neumorphism.NeumorphImageButton>
 
-            android:textColor="@color/design_default_color_secondary_variant" />
-    </soup.neumorphism.NeumorphCardView>
+    <soup.neumorphism.NeumorphImageButton
+
+        android:id="@+id/testbutton2"
+        style="@style/Widget.Neumorph.ImageButton"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+
+
+        android:layout_marginTop="28dp"
+        android:scaleType="centerInside"
+        app:layout_constraintEnd_toStartOf="@+id/progressbarcontainer"
+        app:layout_constraintHorizontal_bias="0.6"
+        app:layout_constraintStart_toEndOf="@+id/testbutton3"
+        app:layout_constraintTop_toBottomOf="@+id/testcheckbox3"
+        app:neumorph_shadowColorLight="@color/white"
+        app:neumorph_shapeType="flat"
+        tools:ignore="MissingConstraints">
+
+
+    </soup.neumorphism.NeumorphImageButton>
 
     <soup.neumorphism.NeumorphCardView
 
         android:id="@+id/testcheckbox3"
         style="@style/CardView"
-
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_marginVertical="25dp"
 
 
-        app:layout_constraintStart_toEndOf="@+id/testbutton"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toStartOf="@+id/progressbarcontainer"
         app:layout_constraintTop_toBottomOf="@+id/terminal"
         app:neumorph_shadowElevation="3dp"
         app:neumorph_shapeType="basin"
@@ -196,7 +197,9 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    tools:layout_editor_absoluteX="12dp"
+                    tools:layout_editor_absoluteY="12dp">
 
                     <RadioButton
                         android:id="@+id/radio2"
@@ -212,6 +215,31 @@
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+    </soup.neumorphism.NeumorphCardView>
+
+    <soup.neumorphism.NeumorphCardView
+        android:id="@+id/terminal"
+        style="@style/Widget.Neumorph.CardView"
+        android:layout_width="328dp"
+        android:layout_height="65dp"
+
+        android:layout_marginTop="80dp"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="0dp">
+
+
+        <TextView
+            android:id="@+id/edittext"
+            android:layout_width="match_parent"
+            android:layout_height="37dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:gravity="center"
+            android:hint="What to do?"
+            android:singleLine="true"
+            android:textColor="@color/design_default_color_secondary_variant" />
+
     </soup.neumorphism.NeumorphCardView>
 
 
