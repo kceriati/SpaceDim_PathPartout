@@ -10,9 +10,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SpaceDIMVisuel">
-        <activity android:name=".MainActivity">
-
-        </activity>
+        <activity android:name=".LobbyPlayers"></activity>
+        <activity android:name=".LobbyEmpty" />
+        <activity android:name=".MainActivity" />
         <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

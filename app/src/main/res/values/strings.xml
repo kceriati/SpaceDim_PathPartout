@@ -3,5 +3,8 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="backToMenu">Back to menu</string>
-    <string name="joinGame">Join or create a new game</string>
+    <string name="joinRoom">Join a room</string>
+    <string name="ready">Ready !</string>
+    <string name="alone">You are alone... Join your friends !</string>
+    <string name="notAlone">Yay ! Your friends are here. Click to "Ready" to begin.</string>
 </resources>
