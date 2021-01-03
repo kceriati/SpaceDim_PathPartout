@@ -10,4 +10,6 @@
     <string name="user1">bmx22c</string>
     <string name="user2">vapie</string>
     <string name="user3">chdrb</string>
+    <string name="statusReady">Ready</string>
+    <string name="waiting">Waiting</string>
 </resources>
