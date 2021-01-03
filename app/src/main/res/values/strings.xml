@@ -2,6 +2,14 @@
     <string name="app_name">SpaceDIM</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="backToMenu">Retourner au Menu</string>
-
+    <string name="backToMenu">Back to menu</string>
+    <string name="joinRoom">Join a room</string>
+    <string name="ready">Ready !</string>
+    <string name="alone">You are alone... Join your friends !</string>
+    <string name="notAlone">Yay ! Your friends are here. Click to "Ready" to begin.</string>
+    <string name="user1">bmx22c</string>
+    <string name="user2">vapie</string>
+    <string name="user3">chdrb</string>
+    <string name="statusReady">Ready</string>
+    <string name="waiting">Waiting</string>
 </resources>

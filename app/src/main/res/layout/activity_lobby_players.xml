@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F1F1F1"
+    tools:context=".LobbyPlayers">
+
+
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            app:srcCompat="@drawable/happyface" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/cockpitTop"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:background="@drawable/cockpittop"
+        tools:ignore="MissingConstraints">
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/cockpitBottom"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:background="@drawable/cockpitbottom"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:ignore="MissingConstraints">
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="250dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/descHappy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/notAlone" />
+    </LinearLayout>
+
+    <soup.neumorphism.NeumorphCardView
+        android:id="@+id/terminal"
+        style="@style/Widget.Neumorph.CardView"
+        app:neumorph_backgroundColor="@color/light_orange"
+        android:layout_width="328dp"
+        android:layout_height="65dp"
+
+        android:layout_marginTop="280dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints">
+
+
+        <TextView
+            android:id="@+id/edittext"
+            android:layout_width="276dp"
+            android:layout_height="38dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="@string/ready"
+            android:textColor="@color/white"
+            android:textStyle="bold" />
+
+    </soup.neumorphism.NeumorphCardView>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="200dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="@+id/cockpitBottom"
+        app:layout_constraintEnd_toEndOf="@+id/cockpitBottom"
+        app:layout_constraintStart_toStartOf="@+id/cockpitBottom">
+
+        <soup.neumorphism.NeumorphCardView
+
+            android:id="@+id/user1"
+            style="@style/Widget.Neumorph.ImageButton"
+            android:layout_width="130dp"
+            android:layout_height="170dp"
+            android:layout_marginTop="24dp"
+            android:scaleType="centerInside"
+            app:neumorph_shadowColorLight="@color/white"
+            app:neumorph_shapeType="flat"
+            app:neumorph_strokeWidth="60dp"
+            tools:ignore="MissingConstraints">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardView"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="10dp"
+                    app:cardCornerRadius="100dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:id="@+id/imageView2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:srcCompat="@drawable/user1" />
+
+                </androidx.cardview.widget.CardView>
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="50dp"
+                    android:text="@string/user1"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:backgroundTint="#18B7A8"
+                    app:cardCornerRadius="10dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <TextView
+                        android:id="@+id/textView6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="6dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginRight="6dp"
+                        android:layout_marginBottom="4dp"
+                        android:text="@string/statusReady"
+                        android:textColor="#FFFFFF" />
+                </androidx.cardview.widget.CardView>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </soup.neumorphism.NeumorphCardView>
+
+        <soup.neumorphism.NeumorphCardView
+
+            android:id="@+id/user2"
+            style="@style/Widget.Neumorph.ImageButton"
+            android:layout_width="130dp"
+            android:layout_height="170dp"
+            android:layout_marginTop="24dp"
+            android:scaleType="centerInside"
+            app:neumorph_shadowColorLight="@color/white"
+            app:neumorph_shapeType="flat"
+            app:neumorph_strokeWidth="60dp"
+            tools:ignore="MissingConstraints">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardView2"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="10dp"
+                    app:cardCornerRadius="100dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:id="@+id/imageView3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:srcCompat="@drawable/user2" />
+
+                </androidx.cardview.widget.CardView>
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="50dp"
+                    android:text="@string/user2"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:backgroundTint="@color/light_orange"
+                    app:cardCornerRadius="10dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <TextView
+                        android:id="@+id/textView7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="6dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginRight="6dp"
+                        android:layout_marginBottom="4dp"
+                        android:text="@string/waiting"
+                        android:textColor="@color/white" />
+                    " />
+                </androidx.cardview.widget.CardView>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </soup.neumorphism.NeumorphCardView>
+
+        <soup.neumorphism.NeumorphCardView
+
+            android:id="@+id/user3"
+            style="@style/Widget.Neumorph.ImageButton"
+            android:layout_width="130dp"
+            android:layout_height="170dp"
+            android:layout_marginTop="24dp"
+            android:scaleType="centerInside"
+            app:neumorph_shadowColorLight="@color/white"
+            app:neumorph_shapeType="flat"
+            app:neumorph_strokeWidth="60dp"
+            tools:ignore="MissingConstraints">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardView3"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="10dp"
+                    app:cardCornerRadius="100dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:id="@+id/imageView4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:srcCompat="@drawable/user3" />
+
+                </androidx.cardview.widget.CardView>
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="50dp"
+                    android:text="@string/user3"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:backgroundTint="@color/light_orange"
+                    app:cardCornerRadius="10dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <TextView
+                        android:id="@+id/textView8"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="6dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginRight="6dp"
+                        android:layout_marginBottom="4dp"
+                        android:text="@string/waiting"
+                        android:textColor="#FFFFFF" />
+                </androidx.cardview.widget.CardView>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </soup.neumorphism.NeumorphCardView>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
