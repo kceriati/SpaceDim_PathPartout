@@ -7,25 +7,8 @@
     android:background="@drawable/background_win"
     tools:context=".MainActivity">
 
-    <soup.neumorphism.NeumorphButton
-        android:id="@+id/neumorphButton"
-        style="@style/Widget.Neumorph.Button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/backToMenu"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.937"
-        app:neumorph_backgroundColor="#343aa8"
-        app:neumorph_shadowColorDark="#252b8f"
-        app:neumorph_shadowColorLight="#4247a8"
-        app:neumorph_shapeType="flat" />
-
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="GG WP"
@@ -46,25 +29,40 @@
         android:textColor="#88ffffff"
         android:textSize="8dp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/neumorphButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:layout_constraintVertical_bias="0.857" />
+        app:layout_constraintTop_toBottomOf="@+id/textView1" />
+
+    <soup.neumorphism.NeumorphButton
+        android:id="@+id/neumorphButton"
+        style="@style/Widget.Neumorph.Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/backToMenu"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.937"
+        app:neumorph_backgroundColor="#343aa8"
+        app:neumorph_shadowColorDark="#252b8f"
+        app:neumorph_shadowColorLight="#4247a8"
+        app:neumorph_shapeType="flat" />
 
     <!--    <soup.neumorphism.NeumorphButton-->
-<!--        android:id="@+id/backToMenu"-->
-<!--        style="@style/ShapeAppearance.Neumorph.Button"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:scaleType="centerInside"-->
+    <!--        android:id="@+id/backToMenu"-->
+    <!--        style="@style/ShapeAppearance.Neumorph.Button"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:scaleType="centerInside"-->
 
-<!--        android:text="@string/backToMenu"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:neumorph_shadowColorLight="@color/white"-->
-<!--        app:neumorph_shapeType="flat"-->
-<!--        tools:ignore="MissingConstraints"-->
-<!--        tools:layout_editor_absoluteX="146dp"></soup.neumorphism.NeumorphButton> -->
+    <!--        android:text="@string/backToMenu"-->
+    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--        app:layout_constraintTop_toTopOf="parent"-->
+    <!--        app:neumorph_shadowColorLight="@color/white"-->
+    <!--        app:neumorph_shapeType="flat"-->
+    <!--        tools:ignore="MissingConstraints"-->
+    <!--        tools:layout_editor_absoluteX="146dp"></soup.neumorphism.NeumorphButton> -->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
