@@ -1,10 +1,12 @@
 package com.example.spacedimvisuel
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.os.Looper
 import android.view.Window
 import android.view.WindowManager
+import android.widget.ImageButton
 import android.widget.RadioButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -33,7 +35,7 @@ class MainActivity : AppCompatActivity() {
     }
     fun color_variation(){
         val progressbar: NeumorphCardView = findViewById(R.id.progressbar)
-        progressbar_color+=3
+        progressbar_color+=40
         progressbar.setBackgroundColor(my_gradient(progressbar_color))
 
     }
@@ -55,8 +57,10 @@ class MainActivity : AppCompatActivity() {
         val radio1: RadioButton = findViewById(R.id.radio1)
         val radio2: RadioButton = findViewById(R.id.radio2)
 
+
         radio1.setOnClickListener {
             radio2.isChecked = false
+
         }
         radio2.setOnClickListener {
             radio1.isChecked = false
@@ -65,6 +69,17 @@ class MainActivity : AppCompatActivity() {
         val testbutton : NeumorphImageButton = findViewById(R.id.testbutton)
         testbutton.setOnClickListener {
             color_variation()
+        }
+
+        val buttonlose: ImageButton = findViewById(R.id.buttonlose)
+        buttonlose.setOnClickListener {
+            val intent = Intent(this@MainActivity, LoseActivity::class.java)
+            startActivity(intent)
+        }
+        val buttonwin: ImageButton = findViewById(R.id.buttonwin)
+        buttonwin.setOnClickListener {
+            val intent = Intent(this@MainActivity, WinActivity::class.java)
+            startActivity(intent)
         }
     }
 }

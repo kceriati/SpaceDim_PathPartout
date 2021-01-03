@@ -65,6 +65,8 @@
     <soup.neumorphism.NeumorphImageButton
 
         android:id="@+id/testbutton"
+        android:src="@drawable/ic_baseline_local_gas_station_24"
+
         style="@style/Widget.Neumorph.ImageButton"
         android:layout_width="150dp"
         android:layout_height="150dp"
@@ -83,12 +85,12 @@
 
     <soup.neumorphism.NeumorphImageButton
 
-        android:id="@+id/testbutton3"
+        android:id="@+id/buttonwin"
         style="@style/Widget.Neumorph.ImageButton"
         android:layout_width="150dp"
         android:layout_height="150dp"
 
-
+        android:src="@drawable/icon_fuse"
         android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
         android:scaleType="centerInside"
@@ -103,17 +105,18 @@
 
     <soup.neumorphism.NeumorphImageButton
 
-        android:id="@+id/testbutton2"
+        android:id="@+id/buttonlose"
         style="@style/Widget.Neumorph.ImageButton"
         android:layout_width="150dp"
         android:layout_height="150dp"
-
+        android:src="@drawable/icon_fuse"
+        android:rotation="90"
 
         android:layout_marginTop="28dp"
         android:scaleType="centerInside"
         app:layout_constraintEnd_toStartOf="@+id/progressbarcontainer"
         app:layout_constraintHorizontal_bias="0.6"
-        app:layout_constraintStart_toEndOf="@+id/testbutton3"
+        app:layout_constraintStart_toEndOf="@+id/buttonwin"
         app:layout_constraintTop_toBottomOf="@+id/testcheckbox3"
         app:neumorph_shadowColorLight="@color/white"
         app:neumorph_shapeType="flat"

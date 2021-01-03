@@ -16,10 +16,9 @@ import soup.neumorphism.NeumorphImageButton
 
 import kotlin.math.ln
 
-class LoginActivity : AppCompatActivity() {
-    var progressbar_color = 0
 
 
+class WinActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         //Remove title bar
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -28,16 +27,14 @@ class LoginActivity : AppCompatActivity() {
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         super.onCreate(savedInstanceState)
 
-        setContentView(R.layout.activity_login)
+        setContentView(R.layout.activity_win)
 
-
-        val button: ImageButton = findViewById(R.id.fusebutton)
+        val button: Button = findViewById(R.id.neumorphButton)
         button.setOnClickListener {
-            val intent = Intent(this@LoginActivity, MainActivity::class.java)
+            val intent = Intent(this@WinActivity, LoginActivity::class.java)
             startActivity(intent)
         }
     }
 }
-
 
 
