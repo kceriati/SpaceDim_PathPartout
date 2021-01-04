@@ -33,7 +33,7 @@ class LoginActivity : AppCompatActivity() {
 
         val button: ImageButton = findViewById(R.id.fusebutton)
         button.setOnClickListener {
-            val intent = Intent(this@LoginActivity, MainActivity::class.java)
+            val intent = Intent(this@LoginActivity, LobbyEmpty::class.java)
             startActivity(intent)
         }
     }

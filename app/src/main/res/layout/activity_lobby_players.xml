@@ -8,11 +8,11 @@
     tools:context=".LobbyPlayers">
 
 
-
     <FrameLayout
+        android:id="@+id/frameLayout2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="80dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -29,8 +29,7 @@
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:background="@drawable/cockpittop"
-        tools:ignore="MissingConstraints">
-    </FrameLayout>
+        tools:ignore="MissingConstraints"></FrameLayout>
 
     <FrameLayout
         android:id="@+id/cockpitBottom"
@@ -46,11 +45,10 @@
         android:id="@+id/linearLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="250dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/frameLayout2">
 
         <TextView
             android:id="@+id/descHappy"
@@ -60,34 +58,6 @@
             android:text="@string/notAlone" />
     </LinearLayout>
 
-    <soup.neumorphism.NeumorphCardView
-        android:id="@+id/terminal"
-        style="@style/Widget.Neumorph.CardView"
-        app:neumorph_backgroundColor="@color/light_orange"
-        android:layout_width="328dp"
-        android:layout_height="65dp"
-
-        android:layout_marginTop="280dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints">
-
-
-        <TextView
-            android:id="@+id/edittext"
-            android:layout_width="276dp"
-            android:layout_height="38dp"
-            android:layout_marginStart="12dp"
-            android:layout_marginEnd="12dp"
-            android:gravity="center"
-            android:singleLine="true"
-            android:text="@string/ready"
-            android:textColor="@color/white"
-            android:textStyle="bold" />
-
-    </soup.neumorphism.NeumorphCardView>
-
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -95,7 +65,8 @@
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="@+id/cockpitBottom"
         app:layout_constraintEnd_toEndOf="@+id/cockpitBottom"
-        app:layout_constraintStart_toStartOf="@+id/cockpitBottom">
+        app:layout_constraintStart_toStartOf="@+id/cockpitBottom"
+        app:layout_constraintTop_toBottomOf="@+id/buttonready">
 
         <soup.neumorphism.NeumorphCardView
 
@@ -114,6 +85,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="50dp"
+                    android:text="@string/user1"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cardView"
                     android:layout_width="60dp"
@@ -131,16 +112,6 @@
                         app:srcCompat="@drawable/user1" />
 
                 </androidx.cardview.widget.CardView>
-
-                <TextView
-                    android:id="@+id/textView2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="50dp"
-                    android:text="@string/user1"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="wrap_content"
@@ -183,7 +154,19 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                tools:layout_editor_absoluteX="12dp"
+                tools:layout_editor_absoluteY="12dp">
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="50dp"
+                    android:text="@string/user2"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cardView2"
@@ -202,16 +185,6 @@
                         app:srcCompat="@drawable/user2" />
 
                 </androidx.cardview.widget.CardView>
-
-                <TextView
-                    android:id="@+id/textView3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="50dp"
-                    android:text="@string/user2"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="wrap_content"
@@ -257,6 +230,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="50dp"
+                    android:text="@string/user3"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cardView3"
                     android:layout_width="60dp"
@@ -274,16 +257,6 @@
                         app:srcCompat="@drawable/user3" />
 
                 </androidx.cardview.widget.CardView>
-
-                <TextView
-                    android:id="@+id/textView4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="50dp"
-                    android:text="@string/user3"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="wrap_content"
@@ -311,5 +284,24 @@
 
         </soup.neumorphism.NeumorphCardView>
     </LinearLayout>
+
+    <soup.neumorphism.NeumorphButton
+        android:id="@+id/buttonready"
+        style="@style/Widget.Neumorph.CardView"
+        android:layout_width="328dp"
+        android:layout_height="65dp"
+
+        android:gravity="center"
+        android:singleLine="true"
+        android:text="@string/ready"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        app:neumorph_backgroundColor="@color/light_orange"
+        tools:ignore="MissingConstraints">
+
+    </soup.neumorphism.NeumorphButton>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
