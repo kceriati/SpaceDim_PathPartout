@@ -290,7 +290,6 @@
         style="@style/Widget.Neumorph.CardView"
         android:layout_width="328dp"
         android:layout_height="65dp"
-
         android:gravity="center"
         android:singleLine="true"
         android:text="@string/ready"
