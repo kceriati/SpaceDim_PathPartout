@@ -1,20 +1,12 @@
-package com.example.spacedimvisuel
+package com.example.spacedimvisuel.old
 
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
-import android.os.Looper
 import android.view.Window
 import android.view.WindowManager
-import android.widget.Button
 import android.widget.ImageButton
-import android.widget.RadioButton
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import soup.neumorphism.NeumorphCardView
-import soup.neumorphism.NeumorphImageButton
-
-import kotlin.math.ln
+import com.example.spacedimvisuel.R
 
 class LoginActivity : AppCompatActivity() {
     var progressbar_color = 0

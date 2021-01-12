@@ -14,19 +14,14 @@
  * limitations under the License.
  */
 
-package com.example.spacedimvisuel
+package com.example.spacedimvisuel.screens.lobby
 
-import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
+import android.util.Log
+import androidx.lifecycle.ViewModel
 
 /**
- * Creates an Activity that hosts all of the fragments in the app
+ * ViewModel containing all the logic needed to run the game
  */
-class MainActivity : AppCompatActivity() {
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.main_activity)
-    }
+class LobbyViewModel : ViewModel() {
 
 }

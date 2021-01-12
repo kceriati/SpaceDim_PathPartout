@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_loser2"
-    tools:context=".MainActivity">
+    tools:context=".old.MainActivity2">
 
     <soup.neumorphism.NeumorphButton
         android:id="@+id/neumorphButton"

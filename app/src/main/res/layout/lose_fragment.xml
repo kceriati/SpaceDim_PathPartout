@@ -1,0 +1,45 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/game_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/background_loser2"
+        tools:context=".screens.lose.LoseFragment">
+
+        <soup.neumorphism.NeumorphButton
+            android:id="@+id/neumorphButton"
+            style="@style/Widget.Neumorph.Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/backToMenu"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.937"
+            app:neumorph_backgroundColor="#343aa8"
+            app:neumorph_shadowColorDark="#252b8f"
+            app:neumorph_shadowColorLight="#4247a8"
+            app:neumorph_shapeType="flat" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="CHEH!"
+            android:textColor="@color/white"
+            android:textSize="60dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/neumorphButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.814" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
