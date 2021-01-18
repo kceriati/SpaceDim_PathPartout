@@ -1,9 +1,9 @@
 package com.example.spacedimvisuel.api
 
-data class Player (
+data class User (
     val id: Long,
     val name: String,
     val avatar: String,
     val score: Long,
-    val state: String
+    val state: State = State.OVER
 )
