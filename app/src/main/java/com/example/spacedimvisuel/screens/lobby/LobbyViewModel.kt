@@ -23,5 +23,5 @@ import androidx.lifecycle.ViewModel
  * ViewModel containing all the logic needed to run the game
  */
 class LobbyViewModel : ViewModel() {
-
+    
 }
