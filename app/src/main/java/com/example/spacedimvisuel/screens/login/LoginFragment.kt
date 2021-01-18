@@ -58,7 +58,7 @@ class LoginFragment : Fragment() {
         binding.fusebutton.setOnClickListener {
             viewModel.joinRoom("FuckThisOkHttpThingyEatMyShit")
             viewModel.getPlayers()
-            gameFinished()
+            /*gameFinished()*/
         }
 
         //viewModel.getPlayers()
