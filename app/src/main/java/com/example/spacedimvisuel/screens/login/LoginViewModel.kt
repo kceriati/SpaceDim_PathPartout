@@ -17,14 +17,13 @@
 package com.example.spacedimvisuel.screens.login
 
 import android.util.Log
+import android.widget.EditText
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.spacedimvisuel.api.Player
+import androidx.lifecycle.viewModelScope
 import com.example.spacedimvisuel.api.SpaceDimApi
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import kotlinx.coroutines.launch
 
 /**
  * ViewModel containing all the logic needed to run the game
@@ -44,21 +43,41 @@ class LoginViewModel : ViewModel() {
     }
 
     fun getPlayers() {
-        Log.i(TAG, "test de connexion")
-        SpaceDimApi.retrofitService.getPlayers().enqueue(
-            object: Callback<List<Player>> {
-                override fun onFailure(call: Call<List<Player>>, t: Throwable) {
-                    _response.postValue("Failure: " + t.message)
-                    Log.i(TAG, response.toString())
-                }
+        viewModelScope.launch {
+            try {
+                val listResult = SpaceDimApi.retrofitService.getPlayers()
+                _response.value = "Success: ${listResult.size} players retrieved"
+            } catch (e: Exception) {
+                _response.value = "Failure: ${e.message}"
+            }
+        }
+    }
 
-                override fun onResponse(
-                    call: Call<List<Player>>,
-                    response: Response<List<Player>>
-                ) {
-                    _response.postValue("Success: ${response.body()?.size} players")
-                    Log.i(TAG, response.toString())
+    fun findPlayer(userName: String) {
+        viewModelScope.launch {
+            try {
+                val player = SpaceDimApi.retrofitService.findPlayer(userName)
+                _response.value = "Success"
+                Log.i(TAG, userName)
+                Log.i(TAG, player.id.toString())
+            } catch (e: Exception) {
+                if(e.message.toString() == "HTTP 404") {
+                    createPlayer()
+                } else {
+                    _response.value = "Failure: ${e.message}"
+                    Log.i(TAG, e.message.toString())
                 }
-            })
+            }
+        }
+    }
+
+    fun createPlayer() {
+        viewModelScope.launch {
+            try {
+
+            } catch (e: Exception) {
+
+            }
+        }
     }
 }

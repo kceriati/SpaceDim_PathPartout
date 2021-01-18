@@ -7,6 +7,8 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.POST
+import retrofit2.http.Path
 
 private const val BASE_URL =
     "https://spacedim.async-agency.com/api/"
@@ -22,8 +24,12 @@ private val retrofit = Retrofit.Builder()
 
 interface SpaceDimApiService {
     @GET("users")
-    fun getPlayers():
-            Call<List<Player>>
+    suspend fun getPlayers():
+            List<Player>
+
+    @GET("user/find/{name}")
+    suspend fun findPlayer(@Path("name") userName: String):
+            Player
 }
 
 object SpaceDimApi {
