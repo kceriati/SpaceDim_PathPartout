@@ -22,7 +22,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.spacedimvisuel.api.SpaceDimApi
-import com.squareup.moshi.JsonClass
+import com.example.spacedimvisuel.api.UserPost
 import com.squareup.moshi.Moshi
 import kotlinx.coroutines.launch
 
@@ -41,34 +41,27 @@ class LoginViewModel : ViewModel() {
 
     init {
         Log.i(TAG, "ViewModel Linked")
-        getUsers()
-    }
-
-    fun getUsers() {
-        viewModelScope.launch {
-            try {
-                val listResult = SpaceDimApi.retrofitService.getUsers()
-                _response.value = "Success: ${listResult.size} players retrieved"
-            } catch (e: Exception) {
-                _response.value = "Failure: ${e.message}"
-            }
-        }
     }
 
     fun findUser(userName: String) {
         viewModelScope.launch {
             try {
                 val user = SpaceDimApi.retrofitService.findUser(userName)
-                _response.value = "Success"
-                Log.i(TAG, userName)
-                Log.i(TAG, user.id.toString())
+                val userId = user.id.toInt()
+                logUser(userId)
             } catch (e: Exception) {
-                //if(e.message.toString() == "HTTP 404") {
-                    createUser(userName)
-                /*} else {
-                    _response.value = "Failure: ${e.message}"
-                    Log.i(TAG, e.message.toString())
-                }*/
+                println(e)
+                createUser(userName)
+            }
+        }
+    }
+
+    fun logUser(userId: Int) {
+        viewModelScope.launch {
+            try {
+                val user = SpaceDimApi.retrofitService.logUser(userId)
+            } catch (e: Exception) {
+                Log.i(TAG, e.message.toString())
             }
         }
     }
@@ -76,9 +69,9 @@ class LoginViewModel : ViewModel() {
     fun createUser(userName: String) {
         viewModelScope.launch {
             try {
-                val userPost = UserPost(userName)
-                var newUser = moshi.adapter(UserPost::class.java)
+                val newUser = UserPost(userName)
                 val service = SpaceDimApi.retrofitService.createUser(newUser)
+
             } catch (e: Exception) {
                 //HttpException()
                 Log.i(TAG, e.message.toString())
@@ -86,6 +79,3 @@ class LoginViewModel : ViewModel() {
         }
     }
 }
-
-@JsonClass(generateAdapter = true)
-data class UserPost(val name: String)

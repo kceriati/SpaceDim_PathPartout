@@ -1,6 +1,5 @@
 package com.example.spacedimvisuel.api
 
-import com.example.spacedimvisuel.screens.login.UserPost
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -22,9 +21,9 @@ private val retrofit = Retrofit.Builder()
     .build()
 
 interface SpaceDimApiService {
-    @GET("users")
-    suspend fun getUsers():
-            List<User>
+    @GET("user/{id}")
+    suspend fun logUser(@Path("id") userId: Int):
+            User
 
     @GET("user/find/{name}")
     suspend fun findUser(@Path("name") userName: String):
@@ -32,7 +31,7 @@ interface SpaceDimApiService {
 
     @Headers("Content-Type:application/json")
     @POST("user/register")
-    suspend fun createUser(@Body request: JsonAdapter<UserPost>):
+    suspend fun createUser(@Body request: UserPost):
             Response<User>?
 }
 
