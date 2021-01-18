@@ -54,14 +54,13 @@ class LoginFragment : Fragment() {
         binding.lifecycleOwner = this
 
         binding.rocketButton.setOnClickListener {
-            //  goToLobby()
             viewModel.findUser(binding.editText.getText().toString())
+            goToLobby()
         }
-        //viewModel.getPlayers()
 
         return binding.root
-
     }
+
     private fun goToLobby() {
         val action = LoginFragmentDirections.actionLoginDestinationToLobbyDestination()
         NavHostFragment.findNavController(this).navigate(action)

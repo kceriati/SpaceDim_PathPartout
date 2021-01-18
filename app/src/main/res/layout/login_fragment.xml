@@ -60,7 +60,7 @@
                         android:id="@+id/editText"
                         android:layout_width="221dp"
                         android:layout_height="49dp"
-                        android:hint="Crée ton astronaute"
+                        android:hint="Ton pseudo d'astronaute"
                         android:background="@null"
                         android:paddingLeft="10dp"
                         android:singleLine="true"
