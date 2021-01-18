@@ -21,6 +21,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.spacedimvisuel.api.Player
+import com.example.spacedimvisuel.api.SocketListener
 import com.example.spacedimvisuel.api.SpaceDimApi
 import okhttp3.*
 import retrofit2.Call
@@ -73,37 +74,6 @@ class LoginViewModel : ViewModel() {
         val listener = SocketListener()
         val webSocket = client.newWebSocket(request, listener)
 
-        //REQ
-        client.newCall(request).enqueue(object : okhttp3.Callback {
-            override fun onFailure(call: okhttp3.Call, e: IOException) {
-                e.printStackTrace()
-            }
-
-            override fun onResponse(call: okhttp3.Call, response: okhttp3.Response){
-                if(!response.isSuccessful) throw IOException("Unexpected code $response")
-
-                //TODO: REDIRECTION
-            }
-        })
-    }
-}
-
-
-class SocketListener: WebSocketListener(){
-    override fun onOpen(webSocket: WebSocket, response: okhttp3.Response)  {
-        Log.i("log", "onOpen")
-        println("onOpen")
-        println(response)
-    }
-
-    override fun onMessage(webSocket: WebSocket, response: String) {
-        Log.i("log", "onMessage")
-        println("onMessage")
-        println(response)
-    }
-
-    override fun onFailure(webSocket: WebSocket, t: Throwable, response: okhttp3.Response?) {
-        super.onFailure(webSocket, t, response)
-        println(t.message)
+        webSocket.send("{\"type\":\"READY\", \"value\":true}");
     }
 }
