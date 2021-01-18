@@ -55,7 +55,7 @@ class LoginFragment : Fragment() {
 
         binding.rocketButton.setOnClickListener {
             //  goToLobby()
-            viewModel.findPlayer(binding.editText.getText().toString())
+            viewModel.findUser(binding.editText.getText().toString())
         }
         //viewModel.getPlayers()
 

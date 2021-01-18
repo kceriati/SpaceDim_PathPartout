@@ -39,13 +39,13 @@ class LoginViewModel : ViewModel() {
 
     init {
         Log.i(TAG, "ViewModel Linked")
-        getPlayers()
+        getUsers()
     }
 
-    fun getPlayers() {
+    fun getUsers() {
         viewModelScope.launch {
             try {
-                val listResult = SpaceDimApi.retrofitService.getPlayers()
+                val listResult = SpaceDimApi.retrofitService.getUsers()
                 _response.value = "Success: ${listResult.size} players retrieved"
             } catch (e: Exception) {
                 _response.value = "Failure: ${e.message}"
@@ -53,16 +53,16 @@ class LoginViewModel : ViewModel() {
         }
     }
 
-    fun findPlayer(userName: String) {
+    fun findUser(userName: String) {
         viewModelScope.launch {
             try {
-                val player = SpaceDimApi.retrofitService.findPlayer(userName)
+                val user = SpaceDimApi.retrofitService.findUser(userName)
                 _response.value = "Success"
                 Log.i(TAG, userName)
-                Log.i(TAG, player.id.toString())
+                Log.i(TAG, user.id.toString())
             } catch (e: Exception) {
                 if(e.message.toString() == "HTTP 404") {
-                    createPlayer()
+                    createUser()
                 } else {
                     _response.value = "Failure: ${e.message}"
                     Log.i(TAG, e.message.toString())
@@ -71,10 +71,10 @@ class LoginViewModel : ViewModel() {
         }
     }
 
-    fun createPlayer() {
+    fun createUser() {
         viewModelScope.launch {
             try {
-
+                val newUser = SpaceDimApi.retrofitService.createUser()
             } catch (e: Exception) {
 
             }
