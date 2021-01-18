@@ -21,15 +21,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
 import com.example.spacedimvisuel.R
 import com.example.spacedimvisuel.databinding.LoginFragmentBinding
-import com.example.spacedimvisuel.screens.game.GameViewModel
-import com.example.spacedimvisuel.screens.login.LoginFragmentDirections
 
 /**
  * Fragment where the game is played
@@ -38,6 +35,7 @@ class LoginFragment : Fragment() {
 
 
     private lateinit var binding: LoginFragmentBinding
+    private val TAG = "LoginFragment"
     private lateinit var viewModel: LoginViewModel
 
 
@@ -55,18 +53,22 @@ class LoginFragment : Fragment() {
         // Specify the current activity as the lifecycle owner.
         binding.lifecycleOwner = this
 
-        binding.fusebutton.setOnClickListener {
-            viewModel.joinRoom("FuckThisOkHttpThingyEatMyShit")
-            viewModel.getPlayers()
-            gameFinished()
+
+      //  binding.fusebutton.setOnClickListener {
+      //      viewModel.joinRoom("FuckThisOkHttpThingyEatMyShit")
+      //     viewModel.getPlayers()
+      //      gameFinished()
+
+        binding.rocketButton.setOnClickListener {
+            viewModel.findUser(binding.editText.getText().toString())
+            goToLobby()
+
         }
 
-        //viewModel.getPlayers()
-
         return binding.root
-
     }
-    private fun gameFinished() {
+
+    private fun goToLobby() {
         val action = LoginFragmentDirections.actionLoginDestinationToLobbyDestination()
         NavHostFragment.findNavController(this).navigate(action)
     }
