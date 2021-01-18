@@ -56,8 +56,9 @@ class LoginFragment : Fragment() {
         binding.lifecycleOwner = this
 
         binding.fusebutton.setOnClickListener {
-            gameFinished()
+            viewModel.joinRoom("FuckThisOkHttpThingyEatMyShit")
             viewModel.getPlayers()
+            gameFinished()
         }
 
         //viewModel.getPlayers()
