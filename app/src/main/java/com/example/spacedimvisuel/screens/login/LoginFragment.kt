@@ -53,9 +53,16 @@ class LoginFragment : Fragment() {
         // Specify the current activity as the lifecycle owner.
         binding.lifecycleOwner = this
 
+
+      //  binding.fusebutton.setOnClickListener {
+      //      viewModel.joinRoom("FuckThisOkHttpThingyEatMyShit")
+      //     viewModel.getPlayers()
+      //      gameFinished()
+
         binding.rocketButton.setOnClickListener {
             viewModel.findUser(binding.editText.getText().toString())
             goToLobby()
+
         }
 
         return binding.root

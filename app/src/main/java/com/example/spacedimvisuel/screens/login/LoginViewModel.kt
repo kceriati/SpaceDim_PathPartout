@@ -22,9 +22,19 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.spacedimvisuel.api.SpaceDimApi
+
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.WebSocket
+import okhttp3.WebSocketListener
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+
 import com.example.spacedimvisuel.api.UserPost
 import com.squareup.moshi.Moshi
 import kotlinx.coroutines.launch
+
 
 /**
  * ViewModel containing all the logic needed to run the game
@@ -78,4 +88,38 @@ class LoginViewModel : ViewModel() {
             }
         }
     }
+
+
+    fun joinRoom(roomName:String){
+        //OKHTTP
+        val client = OkHttpClient()
+        val request = Request.Builder().url("ws://spacedim.async-agency.com:8081/ws/join/" + roomName + "/1").build();
+
+        //WBS
+        val listener = SocketListener()
+        val webSocket = client.newWebSocket(request, listener)
+
+        webSocket.send("{\"type\":\"READY\", \"value\":true}");
+    }
 }
+
+class SocketListener: WebSocketListener(){
+    override fun onOpen(webSocket: WebSocket, response: okhttp3.Response)  {
+        Log.i("log", "onOpen")
+        println("onOpen")
+        println(response)
+    }
+
+    override fun onMessage(webSocket: WebSocket, response: String) {
+        Log.i("log", "onMessage")
+        println("onMessage")
+        println(response)
+    }
+
+    override fun onFailure(webSocket: WebSocket, t: Throwable, response: okhttp3.Response?) {
+        super.onFailure(webSocket, t, response)
+        println(t.message)
+    }
+}
+
+

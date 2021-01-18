@@ -18,15 +18,23 @@ package com.example.spacedimvisuel
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.example.spacedimvisuel.screens.login.LoginViewModel
 
 /**
  * Creates an Activity that hosts all of the fragments in the app
  */
 class MainActivity : AppCompatActivity() {
 
+    var loginViewModelTraveler = LoginViewModel();
+
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
+    }
+
+    fun getLoginVMTraveler(): LoginViewModel {
+        return loginViewModelTraveler;
     }
 
 }

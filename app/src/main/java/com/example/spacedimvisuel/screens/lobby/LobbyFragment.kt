@@ -43,7 +43,7 @@ class LobbyFragment : Fragment() {
     private lateinit var binding: LobbyFragmentBinding
 
 
-    private lateinit var viewModel: LobbyViewModel
+    private var viewModel: LobbyViewModel = LobbyViewModel()
     private val  listPlayer = {"p1";"p2"}
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -65,7 +65,8 @@ class LobbyFragment : Fragment() {
         binding.playerList.addView(createPlayerContainer("gf",4))
         binding.playerList.addView(createPlayerContainer("f",5))
 
-
+        /*println("REPONSE REUSSIE : " + this.viewModel.mainActivityBridge.getLoginVMTraveler().getPlayers().toString())
+*/
         return binding.root
     }
     private fun nextScreen() {
