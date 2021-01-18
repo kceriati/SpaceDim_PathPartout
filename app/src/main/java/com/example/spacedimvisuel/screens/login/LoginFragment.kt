@@ -28,6 +28,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
 import com.example.spacedimvisuel.R
 import com.example.spacedimvisuel.databinding.LoginFragmentBinding
+import com.example.spacedimvisuel.screens.game.GameViewModel
 import com.example.spacedimvisuel.screens.login.LoginFragmentDirections
 
 /**
@@ -37,8 +38,6 @@ class LoginFragment : Fragment() {
 
 
     private lateinit var binding: LoginFragmentBinding
-
-
     private lateinit var viewModel: LoginViewModel
 
 
@@ -52,7 +51,17 @@ class LoginFragment : Fragment() {
                 container,
                 false
         )
-        binding.fusebutton.setOnClickListener { gameFinished() }
+        viewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
+        // Specify the current activity as the lifecycle owner.
+        binding.lifecycleOwner = this
+
+        binding.fusebutton.setOnClickListener {
+            gameFinished()
+            viewModel.getPlayers()
+        }
+
+        //viewModel.getPlayers()
+
         return binding.root
 
     }

@@ -14,6 +14,6 @@ class LobbyFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_lobby, container, false)
+        return inflater.inflate(R.layout.lobby_fragment, container, false)
     }
 }

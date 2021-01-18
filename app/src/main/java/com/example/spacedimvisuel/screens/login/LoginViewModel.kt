@@ -17,11 +17,48 @@
 package com.example.spacedimvisuel.screens.login
 
 import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.spacedimvisuel.api.Player
+import com.example.spacedimvisuel.api.SpaceDimApi
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 /**
  * ViewModel containing all the logic needed to run the game
  */
 class LoginViewModel : ViewModel() {
+    // The internal MutableLiveData String that stores the most recent response
+    private val _response = MutableLiveData<String>()
+    private val TAG = "LoginViewModel"
 
+    // The external immutable LiveData for the response String
+    val response: LiveData<String>
+        get() = _response
+
+    init {
+        Log.i(TAG, "ViewModel Linked")
+        getPlayers()
+    }
+
+    fun getPlayers() {
+        Log.i(TAG, "test de connexion")
+        SpaceDimApi.retrofitService.getPlayers().enqueue(
+            object: Callback<List<Player>> {
+                override fun onFailure(call: Call<List<Player>>, t: Throwable) {
+                    _response.postValue("Failure: " + t.message)
+                    Log.i(TAG, response.toString())
+                }
+
+                override fun onResponse(
+                    call: Call<List<Player>>,
+                    response: Response<List<Player>>
+                ) {
+                    _response.postValue("Success: ${response.body()?.size} players")
+                    Log.i(TAG, response.toString())
+                }
+            })
+    }
 }
