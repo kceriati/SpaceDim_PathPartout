@@ -17,12 +17,13 @@
 package com.example.spacedimvisuel.screens.login
 
 import android.util.Log
-import android.widget.EditText
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.spacedimvisuel.api.SpaceDimApi
+import com.squareup.moshi.JsonClass
+import com.squareup.moshi.Moshi
 import kotlinx.coroutines.launch
 
 /**
@@ -31,6 +32,7 @@ import kotlinx.coroutines.launch
 class LoginViewModel : ViewModel() {
     // The internal MutableLiveData String that stores the most recent response
     private val _response = MutableLiveData<String>()
+    private val moshi = Moshi.Builder().build()
     private val TAG = "LoginViewModel"
 
     // The external immutable LiveData for the response String
@@ -61,23 +63,29 @@ class LoginViewModel : ViewModel() {
                 Log.i(TAG, userName)
                 Log.i(TAG, user.id.toString())
             } catch (e: Exception) {
-                if(e.message.toString() == "HTTP 404") {
-                    createUser()
-                } else {
+                //if(e.message.toString() == "HTTP 404") {
+                    createUser(userName)
+                /*} else {
                     _response.value = "Failure: ${e.message}"
                     Log.i(TAG, e.message.toString())
-                }
+                }*/
             }
         }
     }
 
-    fun createUser() {
+    fun createUser(userName: String) {
         viewModelScope.launch {
             try {
-                val newUser = SpaceDimApi.retrofitService.createUser()
+                val userPost = UserPost(userName)
+                var newUser = moshi.adapter(UserPost::class.java)
+                val service = SpaceDimApi.retrofitService.createUser(newUser)
             } catch (e: Exception) {
-
+                //HttpException()
+                Log.i(TAG, e.message.toString())
             }
         }
     }
 }
+
+@JsonClass(generateAdapter = true)
+data class UserPost(val name: String)
