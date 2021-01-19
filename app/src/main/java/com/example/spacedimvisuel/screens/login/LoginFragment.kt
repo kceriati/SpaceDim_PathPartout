@@ -61,6 +61,7 @@ class LoginFragment : Fragment() {
         viewModel.userFromAPI.observe(viewLifecycleOwner, Observer {
             Log.i(TAG, viewModel.userFromAPI.value.toString())
             val action = LoginFragmentDirections.actionLoginDestinationToLobbyDestination(viewModel.userFromAPI.value!!)
+            //action.user = viewModel.userFromAPI.value!!
             NavHostFragment.findNavController(this).navigate(action)
         })
 

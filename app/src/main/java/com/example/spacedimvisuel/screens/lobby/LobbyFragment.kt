@@ -38,7 +38,7 @@ import com.example.spacedimvisuel.databinding.LobbyFragmentBinding
 class LobbyFragment : Fragment() {
 
     private lateinit var viewModel: LobbyViewModel
-    //private lateinit var viewModelFactory: LobbyViewModelFactory
+    private lateinit var viewModelFactory: LobbyViewModelFactory
     private val  listPlayer = {"p1";"p2"}
     private val TAG = "LobbyFragment"
 
@@ -49,9 +49,7 @@ class LobbyFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
 
 
-
-
-       //  not here
+        //  not here
         // Inflate view and obtain an instance of the binding class
         binding = DataBindingUtil.inflate(
                 inflater,
@@ -62,7 +60,7 @@ class LobbyFragment : Fragment() {
 
       //  viewModelFactory = LobbyViewModelFactory(LobbyFragmentArgs.fromBundle(arguments!!).user)
 
-        binding.buttonready.setOnClickListener {viewModel.joinRoom("FuckThisOkHttpThingyEatMyShit") }
+        binding.buttonready.setOnClickListener {viewModel.joinRoom("FuckThisOkHttpThingyEatMyShit",viewModel.currentPlayer ) }
 
         binding.playerList.addView(createPlayerContainer("ad",1))
         binding.playerList.addView(createPlayerContainer("a",2))
@@ -70,8 +68,8 @@ class LobbyFragment : Fragment() {
         binding.playerList.addView(createPlayerContainer("gf",4))
         binding.playerList.addView(createPlayerContainer("f",5))
 
-        //viewModelFactory = LobbyViewModelFactory(LobbyFragmentArgs.fromBundle(arguments!!).user)
-        viewModel = ViewModelProvider(this).get(LobbyViewModel::class.java)
+        viewModelFactory = LobbyViewModelFactory(LobbyFragmentArgs.fromBundle(requireArguments()).user)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(LobbyViewModel::class.java)
         //println("REPONSE REUSSIE : " + this.viewModel.mainActivityBridge.getLoginVMTraveler())
        /* println("REPONSE REUSSIE : " + this.viewModel.mainActivityBridge.getLoginVMTraveler())*/
 
