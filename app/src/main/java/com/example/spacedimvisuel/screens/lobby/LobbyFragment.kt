@@ -43,6 +43,7 @@ class LobbyFragment : Fragment() {
     private lateinit var binding: LobbyFragmentBinding
 
 
+
     private lateinit var viewModel: LobbyViewModel
     private lateinit var viewModelFactory: LobbyViewModelFactory
     private val  listPlayer = {"p1";"p2"}
@@ -70,6 +71,7 @@ class LobbyFragment : Fragment() {
         binding.playerList.addView(createPlayerContainer("gf",4))
         binding.playerList.addView(createPlayerContainer("f",5))
 
+        println("REPONSE REUSSIE : " + this.viewModel.mainActivityBridge.getLoginVMTraveler())
 
         return binding.root
     }
@@ -91,7 +93,7 @@ class LobbyFragment : Fragment() {
         return playertile
     }
 
-private fun toggle(id:Int) {
+    private fun toggle(id:Int) {
 
-}
+    }
 }

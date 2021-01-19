@@ -20,12 +20,19 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+
 import com.example.spacedimvisuel.api.User
 import com.squareup.moshi.Moshi
+
+import com.example.spacedimvisuel.MainActivity
+import okhttp3.WebSocket
+import okhttp3.WebSocketListener
+
 
 /**
  * ViewModel containing all the logic needed to run the game
  */
+
 class LobbyViewModel(player: User) : ViewModel() {
     private val _user = MutableLiveData<User>()
 
@@ -36,5 +43,6 @@ class LobbyViewModel(player: User) : ViewModel() {
         _user.value = player
 
     }
+
 
 }

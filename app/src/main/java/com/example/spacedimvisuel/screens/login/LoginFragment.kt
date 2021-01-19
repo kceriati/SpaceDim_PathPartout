@@ -57,7 +57,8 @@ class LoginFragment : Fragment() {
 
         binding.rocketButton.setOnClickListener {
             viewModel.findUser(binding.editText.getText().toString())
-            goToLobby()
+            viewModel.joinRoom("FuckThisOkHttpThingyEatMyShit")
+            /*goToLobby()*/
         }
 
 
