@@ -1,0 +1,53 @@
+<soup.neumorphism.NeumorphCardView android:id="@+id/testcheckbox3"
+    style="@style/CardView"
+    android:layout_width="150dp"
+    android:layout_height="match_parent"
+    app:neumorph_shadowElevation="3dp"
+    app:neumorph_shapeType="flat"
+    tools:ignore="MissingConstraints"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <soup.neumorphism.NeumorphCardView
+            android:id="@+id/progressbarcontainer"
+            style="@style/Widget.Neumorph.CardView"
+
+
+            android:layout_width="124dp"
+            android:layout_height="50dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.555"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:neumorph_shadowElevation="3dp"
+            app:neumorph_shapeType="basin"
+            tools:ignore="MissingConstraints">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                >
+
+                <Switch
+                    android:id="@+id/switch1"
+                    android:layout_width="100dp"
+                    android:layout_height="26dp"
+                    android:switchMinWidth="100dp"
+                    android:showText="false"
+
+
+                    tools:layout_editor_absoluteY="0dp" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </soup.neumorphism.NeumorphCardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</soup.neumorphism.NeumorphCardView>

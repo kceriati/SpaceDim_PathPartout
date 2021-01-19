@@ -35,6 +35,7 @@ class MainActivity : AppCompatActivity() {
 
     fun getLoginVMTraveler(): LoginViewModel {
         return loginViewModelTraveler;
+
     }
 
 }
