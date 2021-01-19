@@ -87,7 +87,7 @@ class LobbyFragment : Fragment() {
         return playertile
     }
 
-private fun toggle(id:Int) {
+    private fun toggle(id:Int) {
 
-}
+    }
 }

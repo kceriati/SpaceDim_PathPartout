@@ -20,6 +20,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.spacedimvisuel.api.SocketListener
 import androidx.lifecycle.viewModelScope
 import com.example.spacedimvisuel.api.SpaceDimApi
 
@@ -48,6 +49,10 @@ class LoginViewModel : ViewModel() {
     // The external immutable LiveData for the response String
     val response: LiveData<String>
         get() = _response
+
+    val listener = SocketListener()
+    var webSocket: WebSocket? = null
+
 
     init {
         Log.i(TAG, "ViewModel Linked")
@@ -96,29 +101,9 @@ class LoginViewModel : ViewModel() {
         val request = Request.Builder().url("ws://spacedim.async-agency.com:8081/ws/join/" + roomName + "/1").build();
 
         //WBS
-        val listener = SocketListener()
-        val webSocket = client.newWebSocket(request, listener)
+        webSocket = client.newWebSocket(request, listener)
 
-        webSocket.send("{\"type\":\"READY\", \"value\":true}");
-    }
-}
-
-class SocketListener: WebSocketListener(){
-    override fun onOpen(webSocket: WebSocket, response: okhttp3.Response)  {
-        Log.i("log", "onOpen")
-        println("onOpen")
-        println(response)
-    }
-
-    override fun onMessage(webSocket: WebSocket, response: String) {
-        Log.i("log", "onMessage")
-        println("onMessage")
-        println(response)
-    }
-
-    override fun onFailure(webSocket: WebSocket, t: Throwable, response: okhttp3.Response?) {
-        super.onFailure(webSocket, t, response)
-        println(t.message)
+        webSocket?.send("{\"type\":\"READY\", \"value\":true}");
     }
 }
 
