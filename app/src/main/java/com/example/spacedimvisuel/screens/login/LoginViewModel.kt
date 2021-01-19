@@ -21,6 +21,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.spacedimvisuel.api.Player
+import com.example.spacedimvisuel.api.SocketListener
 import com.example.spacedimvisuel.api.SpaceDimApi
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -77,24 +78,5 @@ class LoginViewModel : ViewModel() {
         val webSocket = client.newWebSocket(request, listener)
 
         webSocket.send("{\"type\":\"READY\", \"value\":true}");
-    }
-}
-
-class SocketListener: WebSocketListener(){
-    override fun onOpen(webSocket: WebSocket, response: okhttp3.Response)  {
-        Log.i("log", "onOpen")
-        println("onOpen")
-        println(response)
-    }
-
-    override fun onMessage(webSocket: WebSocket, response: String) {
-        Log.i("log", "onMessage")
-        println("onMessage")
-        println(response)
-    }
-
-    override fun onFailure(webSocket: WebSocket, t: Throwable, response: okhttp3.Response?) {
-        super.onFailure(webSocket, t, response)
-        println(t.message)
     }
 }

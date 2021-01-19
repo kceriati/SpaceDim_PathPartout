@@ -30,22 +30,3 @@ class LobbyViewModel : ViewModel() {
     var huh = mainActivityBridge.getLoginVMTraveler().response;
 
 }
-
-class SocketListener: WebSocketListener(){
-    override fun onOpen(webSocket: WebSocket, response: okhttp3.Response)  {
-        Log.i("log", "onOpen")
-        println("onOpen")
-        println(response)
-    }
-
-    override fun onMessage(webSocket: WebSocket, response: String) {
-        Log.i("log", "onMessage")
-        println("onMessage")
-        println(response)
-    }
-
-    override fun onFailure(webSocket: WebSocket, t: Throwable, response: okhttp3.Response?) {
-        super.onFailure(webSocket, t, response)
-        println(t.message)
-    }
-}
