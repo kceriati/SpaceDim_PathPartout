@@ -20,7 +20,7 @@ class SocketListener: WebSocketListener(){
 
     @JsonClass(generateAdapter = true)
     sealed class Event(val type: EventType) {
-        data class NextAction(val action: Notification.Action) : Event(EventType.NEXT_ACTION)
+        data class NextAction(val action: Action) : Event(EventType.NEXT_ACTION)
         data class GameStarted(val uiElementList: List<UIElement>): Event(EventType.GAME_STARTED)
         data class GameOver(val score: Int, val win: Boolean, val level: Int): Event(EventType.GAME_OVER)
         data class NextLevel(val uiElementList: List<UIElement>, val level: Int) : Event(EventType.NEXT_LEVEL)
@@ -51,6 +51,13 @@ class SocketListener: WebSocketListener(){
 
     data class User(val id: Int, val name: String, val avatar: String, var score: Int, var state: State = State.OVER)
 
+
+    data class Action(
+        val sentence: String,
+        val uiElement: UIElement,
+        val time: Long = 8000
+    )
+
     override fun onOpen(webSocket: WebSocket, response: Response)  {
         Log.i("log", "onOpen")
         println("onOpen")
@@ -62,8 +69,9 @@ class SocketListener: WebSocketListener(){
         println("onMessage")
         println(response)
 
-        /*var message = eventGameParser.fromJson(response);*//*
-        println(message)*/
+        var message = eventGameParser.fromJson(response);
+        println(message?.type)
+
     }
 
     override fun onFailure(webSocket: WebSocket, t: Throwable, response: Response?) {

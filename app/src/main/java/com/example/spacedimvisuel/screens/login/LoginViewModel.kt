@@ -44,6 +44,10 @@ class LoginViewModel : ViewModel() {
     val response: LiveData<String>
         get() = _response
 
+    val listener = SocketListener()
+    var webSocket: WebSocket? = null
+
+
     init {
         Log.i(TAG, "ViewModel Linked")
         getPlayers()
@@ -74,9 +78,8 @@ class LoginViewModel : ViewModel() {
         val request = Request.Builder().url("ws://spacedim.async-agency.com:8081/ws/join/" + roomName + "/1").build();
 
         //WBS
-        val listener = SocketListener()
-        val webSocket = client.newWebSocket(request, listener)
+        webSocket = client.newWebSocket(request, listener)
 
-        webSocket.send("{\"type\":\"READY\", \"value\":true}");
+        webSocket?.send("{\"type\":\"READY\", \"value\":true}");
     }
 }
