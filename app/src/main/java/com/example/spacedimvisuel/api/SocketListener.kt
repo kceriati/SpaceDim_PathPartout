@@ -60,7 +60,7 @@ class SocketListener: WebSocketListener(){
 
     override fun onOpen(webSocket: WebSocket, response: Response)  {
         Log.i("log", "onOpen")
-        println("onOpen")
+        println("onOpen OK")
         println(response)
     }
 
