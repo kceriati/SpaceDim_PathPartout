@@ -23,11 +23,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.observe
 import androidx.navigation.fragment.NavHostFragment
 import com.example.spacedimvisuel.R
+import com.example.spacedimvisuel.api.SocketListener
+import com.example.spacedimvisuel.api.State
 import com.example.spacedimvisuel.api.User
 import com.example.spacedimvisuel.databinding.LoginFragmentBinding
+import java.net.Socket
 
 /**
  * Fragment where the game is played
@@ -39,7 +45,6 @@ class LoginFragment : Fragment() {
     private val TAG = "LoginFragment"
     private lateinit var viewModel: LoginViewModel
 
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
@@ -50,10 +55,10 @@ class LoginFragment : Fragment() {
                 container,
                 false
         )
+
         viewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
         // Specify the current activity as the lifecycle owner.
         binding.lifecycleOwner = this
-
 
         binding.rocketButton.setOnClickListener {
             viewModel.findUser(binding.editText.getText().toString())
@@ -61,14 +66,17 @@ class LoginFragment : Fragment() {
             /*goToLobby()*/
         }
 
-
+        val gameStarterObserver = Observer<SocketListener.EventType> { newState ->
+            println("ALELOUIA");
+        }
+        viewModel.gameStarter.observe(viewLifecycleOwner, gameStarterObserver)
 
         return binding.root
     }
 
-    private fun goToLobby() {
+    /*private fun goToLobby() {
         val action = LoginFragmentDirections.actionLoginDestinationToLobbyDestination()
         NavHostFragment.findNavController(this).navigate(action)
-    }
+    }*/
 
 }
