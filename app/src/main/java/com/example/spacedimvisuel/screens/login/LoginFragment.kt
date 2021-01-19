@@ -23,6 +23,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
 import com.example.spacedimvisuel.R
@@ -50,25 +52,31 @@ class LoginFragment : Fragment() {
                 container,
                 false
         )
-        viewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
+
         // Specify the current activity as the lifecycle owner.
         binding.lifecycleOwner = this
 
+        viewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
+
+        viewModel.userFromAPI.observe(viewLifecycleOwner, Observer {
+            Log.i(TAG, viewModel.userFromAPI.value.toString())
+            val action = LoginFragmentDirections.actionLoginDestinationToLobbyDestination(viewModel.userFromAPI.value!!)
+            NavHostFragment.findNavController(this).navigate(action)
+        })
 
         binding.rocketButton.setOnClickListener {
             viewModel.findUser(binding.editText.getText().toString())
-            viewModel.joinRoom("FuckThisOkHttpThingyEatMyShit")
-            /*goToLobby()*/
+
+            //viewModel.joinRoom("FuckThisOkHttpThingyEatMyShit")
+
+
         }
-
-
 
         return binding.root
     }
 
     private fun goToLobby() {
-        val action = LoginFragmentDirections.actionLoginDestinationToLobbyDestination()
-        NavHostFragment.findNavController(this).navigate(action)
+
     }
 
 }

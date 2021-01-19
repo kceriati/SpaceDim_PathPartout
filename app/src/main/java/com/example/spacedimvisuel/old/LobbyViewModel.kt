@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.spacedimvisuel.screens.lobby
+package com.example.spacedimvisuel.old
 
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -43,6 +43,4 @@ class LobbyViewModel(player: User) : ViewModel() {
         _user.value = player
 
     }
-
-
 }

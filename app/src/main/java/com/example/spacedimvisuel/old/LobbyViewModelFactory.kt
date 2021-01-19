@@ -1,4 +1,4 @@
-package com.example.spacedimvisuel.screens.lobby
+package com.example.spacedimvisuel.old
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

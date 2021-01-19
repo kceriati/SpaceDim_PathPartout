@@ -5,7 +5,7 @@
     <data>
         <variable
             name="lobbyViewModel"
-            type="com.example.spacedimvisuel.screens.lobby.LobbyViewModel" />
+            type="com.example.spacedimvisuel.old.LobbyViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -65,7 +65,7 @@
                 android:text="@string/notAlone" />
 
             <TextView
-                android:id="@+id/score_text"
+                android:id="@+id/userText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -75,12 +75,6 @@
                 android:textSize="34sp"
                 android:textStyle="normal"
                 android:text="@{String.valueOf(lobbyViewModel.user)}"
-                app:layout_constraintBottom_toTopOf="@+id/play_again_button"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/you_scored_text"
-                app:layout_constraintVertical_chainStyle="packed"
                 tools:text="40" />
         </LinearLayout>
 

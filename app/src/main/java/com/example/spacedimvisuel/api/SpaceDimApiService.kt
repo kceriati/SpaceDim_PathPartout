@@ -1,9 +1,7 @@
 package com.example.spacedimvisuel.api
 
-import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
-import retrofit2.Call
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
@@ -27,7 +25,7 @@ interface SpaceDimApiService {
             User
 
     @GET("user/find/{name}")
-    suspend fun findUser(@Path("name") userName: String):
+    suspend fun findUser(@Path("name") userName: String?):
             User
 
     @Headers("Content-Type:application/json")
