@@ -64,18 +64,6 @@
                 android:layout_weight="1"
                 android:text="@string/notAlone" />
 
-            <TextView
-                android:id="@+id/userText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="8dp"
-                android:fontFamily="sans-serif"
-                android:textColor="@color/black"
-                android:textSize="34sp"
-                android:textStyle="normal"
-                android:text="@{String.valueOf(lobbyViewModel.user)}"
-                tools:text="40" />
         </LinearLayout>
 
 <!--        <LinearLayout-->

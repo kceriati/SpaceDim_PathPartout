@@ -68,10 +68,7 @@ class LoginFragment : Fragment() {
             viewModel.findUser(binding.editText.getText().toString())
 
             //viewModel.joinRoom("FuckThisOkHttpThingyEatMyShit")
-
-
         }
-
         return binding.root
     }
 
