@@ -57,7 +57,7 @@ class LoginFragment : Fragment() {
 
         binding.rocketButton.setOnClickListener {
             viewModel.findUser(binding.editText.getText().toString())
-            goToLobby(user)
+            goToLobby()
         }
 
 
@@ -65,8 +65,8 @@ class LoginFragment : Fragment() {
         return binding.root
     }
 
-    private fun goToLobby(user: User) {
-        val action = LoginFragmentDirections.actionLoginDestinationToLobbyDestination(user)
+    private fun goToLobby() {
+        val action = LoginFragmentDirections.actionLoginDestinationToLobbyDestination()
         NavHostFragment.findNavController(this).navigate(action)
     }
 
