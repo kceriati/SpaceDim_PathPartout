@@ -84,7 +84,7 @@ class LoginFragment : Fragment() {
 
             builder.show()
             viewModel.findUser(binding.editText.getText().toString())
-            viewModel.joinRoom("FuckThisOkHttpThingyEatMyShit")
+
 //            goToLobby()
         }
 
