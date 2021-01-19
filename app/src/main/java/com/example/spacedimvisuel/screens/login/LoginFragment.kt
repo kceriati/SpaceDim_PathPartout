@@ -16,11 +16,16 @@
 
 package com.example.spacedimvisuel.screens.login
 
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
+import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
@@ -34,6 +39,8 @@ import com.example.spacedimvisuel.api.State
 import com.example.spacedimvisuel.api.User
 import com.example.spacedimvisuel.databinding.LoginFragmentBinding
 import java.net.Socket
+import kotlinx.android.synthetic.main.alert_dialog_edittext.*
+
 
 /**
  * Fragment where the game is played
@@ -62,8 +69,23 @@ class LoginFragment : Fragment() {
 
         binding.rocketButton.setOnClickListener {
             viewModel.findUser(binding.editText.getText().toString())
+
+            val builder = AlertDialog.Builder(this.requireContext())
+            val inflater = layoutInflater
+            builder.setTitle("Please enter room name")
+            val dialogLayout = inflater.inflate(R.layout.alert_dialog_edittext, null)
+            val editText = dialogLayout.findViewById<EditText>(R.id.roomNameEditText)
+            builder.setView(dialogLayout)
+            var roomName = ""
+            builder.setPositiveButton("OK") { dialog, which ->
+                roomName = editText.text.toString()
+                println(roomName)
+            }
+
+            builder.show()
+            viewModel.findUser(binding.editText.getText().toString())
             viewModel.joinRoom("FuckThisOkHttpThingyEatMyShit")
-            /*goToLobby()*/
+//            goToLobby()
         }
 
         val gameStarterObserver = Observer<SocketListener.EventType> { newState ->
