@@ -44,6 +44,7 @@ class LobbyFragment : Fragment() {
 
 
     private lateinit var viewModel: LobbyViewModel
+    private lateinit var viewModelFactory: LobbyViewModelFactory
     private val  listPlayer = {"p1";"p2"}
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -56,8 +57,12 @@ class LobbyFragment : Fragment() {
                 container,
                 false
         )
-        binding.buttonready.setOnClickListener { nextScreen() }
 
+        viewModelFactory = LobbyViewModelFactory(LobbyFragmentArgs.fromBundle(arguments!!).user)
+        viewModel = ViewModelProvider(this, viewModelFactory)
+            .get(LobbyViewModel::class.java)
+
+        binding.buttonready.setOnClickListener { nextScreen() }
 
         binding.playerList.addView(createPlayerContainer("ad",1))
         binding.playerList.addView(createPlayerContainer("a",2))
