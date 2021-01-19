@@ -2,6 +2,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+        <variable
+            name="lobbyViewModel"
+            type="com.example.spacedimvisuel.screens.lobby.LobbyViewModel" />
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/game_layout"
@@ -58,6 +63,25 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/notAlone" />
+
+            <TextView
+                android:id="@+id/score_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="8dp"
+                android:fontFamily="sans-serif"
+                android:textColor="@color/black"
+                android:textSize="34sp"
+                android:textStyle="normal"
+                android:text="@{String.valueOf(lobbyViewModel.user)}"
+                app:layout_constraintBottom_toTopOf="@+id/play_again_button"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/you_scored_text"
+                app:layout_constraintVertical_chainStyle="packed"
+                tools:text="40" />
         </LinearLayout>
 
 <!--        <LinearLayout-->
