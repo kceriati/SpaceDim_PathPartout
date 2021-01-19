@@ -57,13 +57,14 @@
                     android:layout_height="wrap_content">
 
                     <EditText
-                        android:id="@+id/edittext"
+                        android:id="@+id/editText"
                         android:layout_width="221dp"
                         android:layout_height="49dp"
-                        android:hint="Crée ton astronaute"
+                        android:hint="Ton pseudo d'astronaute"
                         android:background="@null"
                         android:paddingLeft="10dp"
                         android:singleLine="true"
+                        android:inputType="text"
                         tools:ignore="MissingConstraints"
                         tools:layout_editor_absoluteX="2dp"
                         tools:layout_editor_absoluteY="0dp" />
@@ -71,7 +72,7 @@
             </soup.neumorphism.NeumorphCardView>
 
             <soup.neumorphism.NeumorphImageButton
-                android:id="@+id/fusebutton"
+                android:id="@+id/rocketButton"
                 style="@style/Widget.Neumorph.ImageButton"
                 android:layout_width="101dp"
                 android:layout_height="121dp"

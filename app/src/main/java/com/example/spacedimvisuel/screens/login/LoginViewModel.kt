@@ -20,9 +20,10 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.spacedimvisuel.api.Player
 import com.example.spacedimvisuel.api.SocketListener
+import androidx.lifecycle.viewModelScope
 import com.example.spacedimvisuel.api.SpaceDimApi
+
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.WebSocket
@@ -31,6 +32,10 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+import com.example.spacedimvisuel.api.UserPost
+import com.squareup.moshi.Moshi
+import kotlinx.coroutines.launch
+
 
 /**
  * ViewModel containing all the logic needed to run the game
@@ -38,6 +43,7 @@ import retrofit2.Response
 class LoginViewModel : ViewModel() {
     // The internal MutableLiveData String that stores the most recent response
     private val _response = MutableLiveData<String>()
+    private val moshi = Moshi.Builder().build()
     private val TAG = "LoginViewModel"
 
     // The external immutable LiveData for the response String
@@ -50,27 +56,44 @@ class LoginViewModel : ViewModel() {
 
     init {
         Log.i(TAG, "ViewModel Linked")
-        getPlayers()
     }
 
-    fun getPlayers() {
-        Log.i(TAG, "test de connexion")
-        SpaceDimApi.retrofitService.getPlayers().enqueue(
-            object: Callback<List<Player>> {
-                override fun onFailure(call: Call<List<Player>>, t: Throwable) {
-                    _response.postValue("Failure: " + t.message)
-                    Log.i(TAG, response.toString())
-                }
-
-                override fun onResponse(
-                    call: Call<List<Player>>,
-                    response: Response<List<Player>>
-                ) {
-                    _response.postValue("Success: ${response.body()?.size} players")
-                    Log.i(TAG, response.toString())
-                }
-            })
+    fun findUser(userName: String) {
+        viewModelScope.launch {
+            try {
+                val user = SpaceDimApi.retrofitService.findUser(userName)
+                val userId = user.id.toInt()
+                logUser(userId)
+            } catch (e: Exception) {
+                println(e)
+                createUser(userName)
+            }
+        }
     }
+
+    fun logUser(userId: Int) {
+        viewModelScope.launch {
+            try {
+                val user = SpaceDimApi.retrofitService.logUser(userId)
+            } catch (e: Exception) {
+                Log.i(TAG, e.message.toString())
+            }
+        }
+    }
+
+    fun createUser(userName: String) {
+        viewModelScope.launch {
+            try {
+                val newUser = UserPost(userName)
+                val service = SpaceDimApi.retrofitService.createUser(newUser)
+
+            } catch (e: Exception) {
+                //HttpException()
+                Log.i(TAG, e.message.toString())
+            }
+        }
+    }
+
 
     fun joinRoom(roomName:String){
         //OKHTTP
@@ -83,3 +106,5 @@ class LoginViewModel : ViewModel() {
         webSocket?.send("{\"type\":\"READY\", \"value\":true}");
     }
 }
+
+
