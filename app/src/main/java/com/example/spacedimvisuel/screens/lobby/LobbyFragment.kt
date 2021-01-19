@@ -65,8 +65,8 @@ class LobbyFragment : Fragment() {
         binding.playerList.addView(createPlayerContainer("gf",4))
         binding.playerList.addView(createPlayerContainer("f",5))
 
-        /*println("REPONSE REUSSIE : " + this.viewModel.mainActivityBridge.getLoginVMTraveler().getPlayers().toString())
-*/
+        println("REPONSE REUSSIE : " + this.viewModel.mainActivityBridge.getLoginVMTraveler())
+
         return binding.root
     }
     private fun nextScreen() {
