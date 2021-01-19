@@ -25,6 +25,9 @@ import com.example.spacedimvisuel.api.User
 import com.squareup.moshi.Moshi
 
 import com.example.spacedimvisuel.MainActivity
+import com.example.spacedimvisuel.api.SocketListener
+import okhttp3.OkHttpClient
+import okhttp3.Request
 import okhttp3.WebSocket
 import okhttp3.WebSocketListener
 
@@ -35,6 +38,9 @@ import okhttp3.WebSocketListener
 
 class LobbyViewModel(player: User) : ViewModel() {
     private val _user = MutableLiveData<User>()
+    val listener = SocketListener()
+    var webSocket: WebSocket? = null
+    val gameStarter:MutableLiveData<SocketListener.EventType> = listener.gameState
 
     val user: LiveData<User>
         get() = _user
@@ -44,5 +50,15 @@ class LobbyViewModel(player: User) : ViewModel() {
 
     }
 
+    fun joinRoom(roomName:String){
+        //OKHTTP
+        val client = OkHttpClient()
+        val request = Request.Builder().url("ws://spacedim.async-agency.com:8081/ws/join/" + roomName + "/1").build();
+
+        //WBS
+        webSocket = client.newWebSocket(request, listener)
+
+        webSocket?.send("{\"type\":\"READY\", \"value\":true}");
+    }
 
 }

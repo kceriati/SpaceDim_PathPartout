@@ -26,9 +26,11 @@ import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
 import com.example.spacedimvisuel.R
+import com.example.spacedimvisuel.api.SocketListener
 import com.example.spacedimvisuel.databinding.LobbyFragmentBinding
 import com.example.spacedimvisuel.screens.game.GameFragmentDirections
 import com.example.spacedimvisuel.screens.lobby.LobbyFragmentDirections
@@ -59,7 +61,7 @@ class LobbyFragment : Fragment() {
                 false
         )
 
-        viewModelFactory = LobbyViewModelFactory(LobbyFragmentArgs.fromBundle(arguments!!).user)
+      //  viewModelFactory = LobbyViewModelFactory(LobbyFragmentArgs.fromBundle(arguments!!).user)
         viewModel = ViewModelProvider(this, viewModelFactory)
             .get(LobbyViewModel::class.java)
 
@@ -72,6 +74,11 @@ class LobbyFragment : Fragment() {
         binding.playerList.addView(createPlayerContainer("f",5))
 
        /* println("REPONSE REUSSIE : " + this.viewModel.mainActivityBridge.getLoginVMTraveler())*/
+
+        val gameStarterObserver = Observer<SocketListener.EventType> { newState ->
+            println("ALELOUIA");
+        }
+        viewModel.gameStarter.observe(viewLifecycleOwner, gameStarterObserver)
 
         return binding.root
     }
@@ -96,4 +103,6 @@ class LobbyFragment : Fragment() {
     private fun toggle(id:Int) {
 
     }
+
+
 }

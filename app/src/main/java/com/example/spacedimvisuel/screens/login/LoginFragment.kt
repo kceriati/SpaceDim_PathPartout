@@ -88,10 +88,6 @@ class LoginFragment : Fragment() {
 //            goToLobby()
         }
 
-        val gameStarterObserver = Observer<SocketListener.EventType> { newState ->
-            println("ALELOUIA");
-        }
-        viewModel.gameStarter.observe(viewLifecycleOwner, gameStarterObserver)
 
         return binding.root
     }
