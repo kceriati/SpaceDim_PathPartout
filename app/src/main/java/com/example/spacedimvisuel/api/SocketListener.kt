@@ -10,7 +10,7 @@ import okhttp3.Response
 import okhttp3.WebSocket
 import okhttp3.WebSocketListener
 
-class SocketListener: WebSocketListener(){
+class   SocketListener: WebSocketListener(){
 
     @JsonClass(generateAdapter = true)
     enum class EventType() {

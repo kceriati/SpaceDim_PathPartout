@@ -94,7 +94,6 @@ class LoginViewModel : ViewModel() {
         }
     }
 
-
     fun joinRoom(roomName:String){
         //OKHTTP
         val client = OkHttpClient()

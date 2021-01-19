@@ -26,6 +26,9 @@
         <action
             android:id="@+id/action_lobby_destination_to_game_destination"
             app:destination="@id/game_destination" />
+        <argument
+            android:name="user"
+            app:argType="com.example.spacedimvisuel.api.User" />
     </fragment>
     <fragment
         android:id="@+id/login_destination"

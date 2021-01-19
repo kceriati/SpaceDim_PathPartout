@@ -26,6 +26,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
 import com.example.spacedimvisuel.R
+import com.example.spacedimvisuel.api.User
 import com.example.spacedimvisuel.databinding.LoginFragmentBinding
 
 /**
@@ -52,11 +53,14 @@ class LoginFragment : Fragment() {
         // Specify the current activity as the lifecycle owner.
         binding.lifecycleOwner = this
 
+
         binding.rocketButton.setOnClickListener {
             viewModel.findUser(binding.editText.getText().toString())
             viewModel.joinRoom("FuckThisOkHttpThingyEatMyShit")
             /*goToLobby()*/
         }
+
+
 
         return binding.root
     }
