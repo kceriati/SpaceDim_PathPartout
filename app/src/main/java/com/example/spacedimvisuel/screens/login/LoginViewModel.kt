@@ -20,21 +20,13 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.spacedimvisuel.api.SocketListener
 import androidx.lifecycle.viewModelScope
-import com.example.spacedimvisuel.api.SpaceDimApi
-
+import com.example.spacedimvisuel.api.*
+import com.squareup.moshi.Moshi
+import kotlinx.coroutines.launch
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.WebSocket
-import okhttp3.WebSocketListener
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-
-import com.example.spacedimvisuel.api.UserPost
-import com.squareup.moshi.Moshi
-import kotlinx.coroutines.launch
 
 
 /**
@@ -42,13 +34,19 @@ import kotlinx.coroutines.launch
  */
 class LoginViewModel : ViewModel() {
     // The internal MutableLiveData String that stores the most recent response
-    private val _response = MutableLiveData<String>()
     private val moshi = Moshi.Builder().build()
     private val TAG = "LoginViewModel"
+
+
+    private val _response = MutableLiveData<String>()
 
     // The external immutable LiveData for the response String
     val response: LiveData<String>
         get() = _response
+
+    private var _userFromAPI = MutableLiveData<User>()
+    val userFromAPI: LiveData<User>
+        get() = _userFromAPI
 
     val listener = SocketListener()
     var webSocket: WebSocket? = null
@@ -58,15 +56,20 @@ class LoginViewModel : ViewModel() {
         Log.i(TAG, "ViewModel Linked")
     }
 
-    fun findUser(userName: String) {
+    fun findUser(userName: String?) {
+        var user: User
         viewModelScope.launch {
             try {
-                val user = SpaceDimApi.retrofitService.findUser(userName)
-                val userId = user.id.toInt()
+                val userFromAPI = SpaceDimApi.retrofitService.findUser(userName.toString())
+                val userName = userFromAPI.name
+                val userId = userFromAPI.id
+                val userAvatar = userFromAPI.avatar
+                val userScore = userFromAPI.score
+                _userFromAPI.value = User(userId, userName, userAvatar, userScore, State.OVER)
                 logUser(userId)
             } catch (e: Exception) {
                 println(e)
-                createUser(userName)
+                createUser(userName.toString())
             }
         }
     }
@@ -94,16 +97,12 @@ class LoginViewModel : ViewModel() {
         }
     }
 
+
     fun joinRoom(roomName:String){
         //OKHTTP
         val client = OkHttpClient()
         val request = Request.Builder().url("ws://spacedim.async-agency.com:8081/ws/join/" + roomName + "/1").build();
 
-        //WBS
-        webSocket = client.newWebSocket(request, listener)
-
-        webSocket?.send("{\"type\":\"READY\", \"value\":true}");
-    }
 }
 
 
