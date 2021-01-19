@@ -17,12 +17,15 @@
 package com.example.spacedimvisuel.screens.login
 
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import com.example.spacedimvisuel.api.SocketListener
 import androidx.lifecycle.viewModelScope
 import com.example.spacedimvisuel.api.SpaceDimApi
+import com.example.spacedimvisuel.api.State
 
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -46,12 +49,14 @@ class LoginViewModel : ViewModel() {
     private val moshi = Moshi.Builder().build()
     private val TAG = "LoginViewModel"
 
+    val listener = SocketListener()
+    var webSocket: WebSocket? = null
+
+    val gameStarter:MutableLiveData<SocketListener.EventType> = listener.gameState
+
     // The external immutable LiveData for the response String
     val response: LiveData<String>
         get() = _response
-
-    val listener = SocketListener()
-    var webSocket: WebSocket? = null
 
 
     init {
