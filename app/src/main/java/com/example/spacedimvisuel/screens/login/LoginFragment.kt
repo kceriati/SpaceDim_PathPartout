@@ -31,6 +31,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
 import com.example.spacedimvisuel.R
+import com.example.spacedimvisuel.api.User
 import com.example.spacedimvisuel.databinding.LoginFragmentBinding
 import kotlinx.android.synthetic.main.alert_dialog_edittext.*
 
@@ -59,13 +60,6 @@ class LoginFragment : Fragment() {
         // Specify the current activity as the lifecycle owner.
         binding.lifecycleOwner = this
 
-
-      //  binding.fusebutton.setOnClickListener {
-      //      viewModel.joinRoom("FuckThisOkHttpThingyEatMyShit")
-      //     viewModel.getPlayers()
-      //      gameFinished()
-
-
         binding.rocketButton.setOnClickListener {
             viewModel.findUser(binding.editText.getText().toString())
 
@@ -82,9 +76,12 @@ class LoginFragment : Fragment() {
             }
 
             builder.show()
+            viewModel.findUser(binding.editText.getText().toString())
+            viewModel.joinRoom("FuckThisOkHttpThingyEatMyShit")
 //            goToLobby()
-
         }
+
+
 
         return binding.root
     }
