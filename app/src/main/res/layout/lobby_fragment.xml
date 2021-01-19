@@ -5,7 +5,7 @@
     <data>
         <variable
             name="lobbyViewModel"
-            type="com.example.spacedimvisuel.old.LobbyViewModel" />
+            type="com.example.spacedimvisuel.screens.lobby.LobbyViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

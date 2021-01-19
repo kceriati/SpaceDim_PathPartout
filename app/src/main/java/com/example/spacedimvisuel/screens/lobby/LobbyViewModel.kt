@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.spacedimvisuel.old
+package com.example.spacedimvisuel.screens.lobby
 
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -36,7 +36,7 @@ import okhttp3.WebSocketListener
  * ViewModel containing all the logic needed to run the game
  */
 
-class LobbyViewModel(player: User) : ViewModel() {
+class LobbyViewModel() : ViewModel() {
 
     val listener = SocketListener()
     var webSocket: WebSocket? = null

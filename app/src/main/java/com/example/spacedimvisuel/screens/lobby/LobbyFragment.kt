@@ -17,7 +17,6 @@
 package com.example.spacedimvisuel.screens.lobby
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -32,9 +31,6 @@ import androidx.navigation.fragment.navArgs
 import com.example.spacedimvisuel.R
 import com.example.spacedimvisuel.api.SocketListener
 import com.example.spacedimvisuel.databinding.LobbyFragmentBinding
-import com.example.spacedimvisuel.old.LobbyViewModel
-import com.example.spacedimvisuel.old.LobbyViewModelFactory
-import com.example.spacedimvisuel.screens.login.LoginViewModel
 
 /**
  * Fragment where the game is played
@@ -55,7 +51,7 @@ class LobbyFragment : Fragment() {
 
 
 
-       // viewModel.joinRoom("FuckThisOkHttpThingyEatMyShit") not here
+       //  not here
         // Inflate view and obtain an instance of the binding class
         binding = DataBindingUtil.inflate(
                 inflater,
@@ -66,7 +62,7 @@ class LobbyFragment : Fragment() {
 
       //  viewModelFactory = LobbyViewModelFactory(LobbyFragmentArgs.fromBundle(arguments!!).user)
 
-        binding.buttonready.setOnClickListener { nextScreen() }
+        binding.buttonready.setOnClickListener {viewModel.joinRoom("FuckThisOkHttpThingyEatMyShit") }
 
         binding.playerList.addView(createPlayerContainer("ad",1))
         binding.playerList.addView(createPlayerContainer("a",2))
@@ -78,6 +74,7 @@ class LobbyFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(LobbyViewModel::class.java)
         //println("REPONSE REUSSIE : " + this.viewModel.mainActivityBridge.getLoginVMTraveler())
        /* println("REPONSE REUSSIE : " + this.viewModel.mainActivityBridge.getLoginVMTraveler())*/
+
 
         val gameStarterObserver = Observer<SocketListener.EventType> { newState ->
             println("ALELOUIA");
