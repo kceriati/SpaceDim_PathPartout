@@ -25,6 +25,8 @@ import com.example.spacedimvisuel.api.SocketListener
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.WebSocket
+import okhttp3.WebSocketListener
+import okhttp3.internal.ws.RealWebSocket
 
 
 /**
@@ -35,17 +37,15 @@ class LobbyViewModel(player : User) : ViewModel() {
 
     val listener = SocketListener()
     var webSocket: WebSocket? = null
-    val gameStarter:MutableLiveData<SocketListener.EventType> = listener.gameState
+    val gameState:MutableLiveData<SocketListener.Event> = listener.gameState
     val currentPlayer = player
 
     fun joinRoom(roomName: String, user: User){
         //OKHTTP
         val client = OkHttpClient()
         val request = Request.Builder().url("ws://spacedim.async-agency.com:8081/ws/join/" + roomName + "/" + user.id.toString()).build();
-
         //WBS
         webSocket = client.newWebSocket(request, listener)
-
         webSocket?.send("{\"type\":\"READY\", \"value\":true}");
     }
 }

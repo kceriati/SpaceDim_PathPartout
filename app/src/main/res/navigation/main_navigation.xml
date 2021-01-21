@@ -70,6 +70,13 @@
         <action
             android:id="@+id/action_game_destination_to_lose_destination"
             app:destination="@id/lose_destination" />
+        <argument
+            android:name="user"
+            app:argType="com.example.spacedimvisuel.api.User" />
+        <argument
+            android:name="webSocket"
+            app:argType="com.example.spacedimvisuel.api.MyWebsocketTraveler" />
+
     </fragment>
 
 </navigation>

@@ -17,6 +17,7 @@
 package com.example.spacedimvisuel.screens.lobby
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,9 +27,11 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.observe
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.navArgs
 import com.example.spacedimvisuel.R
+import com.example.spacedimvisuel.api.MyWebsocketTraveler
 import com.example.spacedimvisuel.api.SocketListener
 import com.example.spacedimvisuel.databinding.LobbyFragmentBinding
 
@@ -74,17 +77,25 @@ class LobbyFragment : Fragment() {
        /* println("REPONSE REUSSIE : " + this.viewModel.mainActivityBridge.getLoginVMTraveler())*/
 
 
-        val gameStarterObserver = Observer<SocketListener.EventType> { newState ->
-            println("ALELOUIA");
+
+        val gameStarterObserver = Observer<SocketListener.Event> { newState ->
+            if (newState.type == SocketListener.EventType.GAME_STARTED ) {
+                val action = LobbyFragmentDirections.actionLobbyDestinationToGameDestination(
+                    viewModel.currentPlayer,
+                    MyWebsocketTraveler(viewModel.webSocket!!, viewModel.listener)
+                )
+                //action.user = viewModel.userFromAPI.value!!
+                NavHostFragment.findNavController(this).navigate(action)
+            }
         }
-        viewModel.gameStarter.observe(viewLifecycleOwner, gameStarterObserver)
+        viewModel.gameState.observe(viewLifecycleOwner, gameStarterObserver)
 
         return binding.root
     }
-    private fun nextScreen() {
-        val action = LobbyFragmentDirections.actionLobbyDestinationToGameDestination()
-        NavHostFragment.findNavController(this).navigate(action)
-    }
+//    private fun nextScreen() {
+//        val action = LobbyFragmentDirections.actionLobbyDestinationToGameDestination()
+//        NavHostFragment.findNavController(this).navigate(action)
+//    }
 
     private fun createPlayerContainer(nom : String ,id :Int) :ConstraintLayout{
         val inflater =LayoutInflater.from(this.context)

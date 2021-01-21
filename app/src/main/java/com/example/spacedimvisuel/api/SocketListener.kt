@@ -14,9 +14,9 @@ import okhttp3.WebSocketListener
 
 class SocketListener: WebSocketListener(){
 
-    //current room
-    public val gameState = MutableLiveData<EventType>()
-
+    //current fragment (lobby-> game-> win/lose )
+    public val gameState = MutableLiveData<Event>()
+    public val GameUiElements = MutableLiveData<List<UIElement>>()
     @JsonClass(generateAdapter = true)
     enum class EventType() {
         GAME_STARTED(), GAME_OVER(), ERROR(), READY(), NEXT_ACTION(),
@@ -70,11 +70,13 @@ class SocketListener: WebSocketListener(){
         println(response)
 
         var message = eventGameParser.fromJson(response);
-        println(message?.type)
 
-        if(message?.type == EventType.GAME_OVER){
-            /*gameStarter.value = EventType.GAME_STARTED*/
-            gameState.postValue(message?.type);
+        //on envoie les event que l'on resoit dans un livedata
+        gameState.postValue(message);
+
+        if (message?.type == EventType.GAME_STARTED) {
+            var gamestarted_action = message as SocketListener.Event.GameStarted
+                GameUiElements.postValue(gamestarted_action.uiElementList)
         }
 
     }
