@@ -16,6 +16,7 @@
 
 package com.example.spacedimvisuel.screens.login
 
+import android.hardware.SensorManager
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -34,7 +35,6 @@ class LoginViewModel : ViewModel() {
     // The internal MutableLiveData String that stores the most recent response
     private val moshi = Moshi.Builder().build()
     private val TAG = "LoginViewModel"
-
 
     private val _response = MutableLiveData<String>()
 
