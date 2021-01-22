@@ -16,12 +16,24 @@
 
 package com.example.spacedimvisuel.screens.game
 
-import android.util.Log
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.spacedimvisuel.api.MyWebsocketTraveler
+import com.example.spacedimvisuel.api.SocketListener
+import com.example.spacedimvisuel.api.User
 
 /**
  * ViewModel containing all the logic needed to run the game
  */
-class GameViewModel : ViewModel() {
+class GameViewModel(
+    player: User,
+    webSocketTraveler: MyWebsocketTraveler) : ViewModel() {
+
+    var currentWebSocket = webSocketTraveler.getWebsocket()
+    var currentListener = webSocketTraveler.getlistener()
+    val gameState: MutableLiveData<SocketListener.Event> = currentListener.gameState
+    val gameUiElement = currentListener.GameUiElements
+    val gameNextAction = currentListener.GameAction
+
 
 }

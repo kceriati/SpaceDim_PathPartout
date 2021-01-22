@@ -61,25 +61,14 @@ class LoginFragment : Fragment() {
         viewModel.userFromAPI.observe(viewLifecycleOwner, Observer {
             Log.i(TAG, viewModel.userFromAPI.value.toString())
             val action = LoginFragmentDirections.actionLoginDestinationToLobbyDestination(viewModel.userFromAPI.value!!)
+            //action.user = viewModel.userFromAPI.value!!
             NavHostFragment.findNavController(this).navigate(action)
         })
 
         binding.rocketButton.setOnClickListener {
             viewModel.findUser(binding.editText.getText().toString())
 
-            val builder = AlertDialog.Builder(this.requireContext())
-            val inflater = layoutInflater
-            builder.setTitle("Please enter room name")
-            val dialogLayout = inflater.inflate(R.layout.alert_dialog_edittext, null)
-            val editText = dialogLayout.findViewById<EditText>(R.id.roomNameEditText)
-            builder.setView(dialogLayout)
-            var roomName = ""
-            builder.setPositiveButton("OK") { dialog, which ->
-                roomName = editText.text.toString()
-                println(roomName)
-            }
 
-            builder.show()
             //viewModel.joinRoom("FuckThisOkHttpThingyEatMyShit")
         }
         return binding.root

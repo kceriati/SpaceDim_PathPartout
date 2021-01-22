@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<soup.neumorphism.NeumorphImageButton xmlns:android="http://schemas.android.com/apk/res/android"
+<soup.neumorphism.NeumorphButton xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
 
@@ -7,10 +7,9 @@
     android:layout_height="match_parent"
     style="@style/Widget.Neumorph.ImageButton"
     android:id="@+id/button"
-
     app:neumorph_shadowColorLight="@color/white"
     app:neumorph_shapeType="flat"
     app:neumorph_strokeWidth="60dp">
 
 
-</soup.neumorphism.NeumorphImageButton>
+</soup.neumorphism.NeumorphButton>

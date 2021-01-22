@@ -16,12 +16,20 @@
 
 package com.example.spacedimvisuel.screens.lobby
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.getColor
+import androidx.core.content.res.ResourcesCompat.getColor
+import androidx.core.graphics.drawable.toDrawable
+import androidx.core.graphics.toColor
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -29,8 +37,15 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.navArgs
 import com.example.spacedimvisuel.R
+import com.example.spacedimvisuel.api.MyWebsocketTraveler
 import com.example.spacedimvisuel.api.SocketListener
+import com.example.spacedimvisuel.api.State
+import com.example.spacedimvisuel.api.User
 import com.example.spacedimvisuel.databinding.LobbyFragmentBinding
+import com.google.android.material.color.MaterialColors.getColor
+import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.user_container.view.*
+import com.example.spacedimvisuel.R.color.light_orange as light_orange1
 
 /**
  * Fragment where the game is played
@@ -38,17 +53,17 @@ import com.example.spacedimvisuel.databinding.LobbyFragmentBinding
 class LobbyFragment : Fragment() {
 
     private lateinit var viewModel: LobbyViewModel
-    //private lateinit var viewModelFactory: LobbyViewModelFactory
+    private lateinit var viewModelFactory: LobbyViewModelFactory
     private val  listPlayer = {"p1";"p2"}
     private val TAG = "LobbyFragment"
 
     private lateinit var binding: LobbyFragmentBinding
     private val args by navArgs<LobbyFragmentArgs>()
+    private lateinit var lobbyUserObserver : Observer<List<User>>
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
-       //  not here
         // Inflate view and obtain an instance of the binding class
         binding = DataBindingUtil.inflate(
                 inflater,
@@ -59,48 +74,94 @@ class LobbyFragment : Fragment() {
 
       //  viewModelFactory = LobbyViewModelFactory(LobbyFragmentArgs.fromBundle(arguments!!).user)
 
-        binding.buttonready.setOnClickListener {viewModel.joinRoom("FuckThisOkHttpThingyEatMyShit") }
+        binding.button.setOnClickListener {drawRoomName()}
 
-        binding.playerList.addView(createPlayerContainer("ad",1))
-        binding.playerList.addView(createPlayerContainer("a",2))
-        binding.playerList.addView(createPlayerContainer("ds",3))
-        binding.playerList.addView(createPlayerContainer("gf",4))
-        binding.playerList.addView(createPlayerContainer("f",5))
 
-        //viewModelFactory = LobbyViewModelFactory(LobbyFragmentArgs.fromBundle(arguments!!).user)
-        viewModel = ViewModelProvider(this).get(LobbyViewModel::class.java)
+
+        viewModelFactory = LobbyViewModelFactory(LobbyFragmentArgs.fromBundle(requireArguments()).user)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(LobbyViewModel::class.java)
         //println("REPONSE REUSSIE : " + this.viewModel.mainActivityBridge.getLoginVMTraveler())
        /* println("REPONSE REUSSIE : " + this.viewModel.mainActivityBridge.getLoginVMTraveler())*/
 
 
-        val gameStarterObserver = Observer<SocketListener.EventType> { newState ->
-            println("ALELOUIA");
+        lobbyUserObserver = Observer<List<User>>{ users ->
+                drawUsers(users)
         }
-        viewModel.gameStarter.observe(viewLifecycleOwner, gameStarterObserver)
+        viewModel.lobbyUsers.observe(viewLifecycleOwner, lobbyUserObserver)
+
+
+        val gameStarterObserver = Observer<SocketListener.Event> { newState ->
+            if (newState.type == SocketListener.EventType.GAME_STARTED ) {
+                val action = LobbyFragmentDirections.actionLobbyDestinationToGameDestination(
+                    viewModel.currentPlayer,
+                    MyWebsocketTraveler(viewModel.webSocket!!, viewModel.listener)
+                )
+                //action.user = viewModel.userFromAPI.value!!
+                NavHostFragment.findNavController(this).navigate(action)
+            }
+        }
+        viewModel.gameState.observe(viewLifecycleOwner, gameStarterObserver)
 
         return binding.root
     }
-    private fun nextScreen() {
-        val action = LobbyFragmentDirections.actionLobbyDestinationToGameDestination()
-        NavHostFragment.findNavController(this).navigate(action)
-    }
+//    private fun nextScreen() {
+//        val action = LobbyFragmentDirections.actionLobbyDestinationToGameDestination()
+//        NavHostFragment.findNavController(this).navigate(action)
+//    }
 
-    private fun createPlayerContainer(nom : String ,id :Int) :ConstraintLayout{
+    private fun createPlayerContainer(user: User) :ConstraintLayout{
         val inflater =LayoutInflater.from(this.context)
         val playertile = inflater.inflate(
             R.layout.user_container,
             null,
             false
         ) as ConstraintLayout
-        playertile.setOnClickListener { toggle(id) }
+        //playertile.setOnClickListener { toggle(id) }
         val name= playertile.findViewById<TextView>(R.id.textname)
-        name.text = nom
+        Picasso.get().load(user.avatar).into(playertile.userpic)
+        if (user.state == State.WAITING) {
+            playertile.statuscontainer.setBackgroundResource(R.color.light_orange.toInt())
+            playertile.status.text = "WAITING"
+        }
+        else if(user.state == State.READY){
+            playertile.statuscontainer.setBackgroundResource(R.color.design_default_color_secondary.toInt())
+            playertile.status.text = "READY"
+        }
+            name.text = user.name
         return playertile
     }
 
-    private fun toggle(id:Int) {
+    private fun drawUsers(users : List<User>){
+        binding.playerList.removeAllViews()
+       for (user in users){
+           binding.playerList.addView(createPlayerContainer(user))
+       }
 
     }
 
+    private fun drawRoomName(){
+        val builder = AlertDialog.Builder(this.requireContext())
+        val inflater = layoutInflater
+        builder.setTitle("Please enter room name")
+        val dialogLayout = inflater.inflate(R.layout.alert_dialog_edittext, null)
+        val editText = dialogLayout.findViewById<EditText>(R.id.roomNameEditText)
+        builder.setView(dialogLayout)
+        var roomName = ""
+        builder.setPositiveButton("OK") { dialog, which ->
+            roomName = editText.text.toString()
+            viewModel.joinRoom(roomName,viewModel.currentPlayer)
+            binding.button.setOnClickListener {
+                viewModel.sendready()
+                binding.button.text ="READY ! "
+                //la couleur est à check c chelou
+                binding.button.background = R.color.design_default_color_secondary.toDrawable()
+            }
+            binding.button.setBackgroundColor(R.color.design_default_color_secondary.toInt())
+            binding.button.text ="READY ? "
+            binding.imageView.setImageResource(R.drawable.happyface)
+
+        }
+        builder.show()
+    }
 
 }

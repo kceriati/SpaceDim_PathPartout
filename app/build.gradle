@@ -87,16 +87,12 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation "com.squareup.moshi:moshi-adapters:$moshi_version"
 
-    implementation "com.squareup.moshi:moshi:$moshi_version"
-    implementation "com.squareup.moshi:moshi-kotlin:$moshi_version"
-    implementation "com.squareup.moshi:moshi-adapters:$moshi_version"
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-//    kapt "com.squareup.moshi:moshi-kotlin-codegen:$moshi_version"
-
     //OkHttp
     implementation "com.squareup.okhttp3:okhttp:4.9.0"
 
     //Gson
     implementation 'com.google.code.gson:gson:2.8.5'
+
+    implementation 'com.squareup.picasso:picasso:2.71828'
 
 }
