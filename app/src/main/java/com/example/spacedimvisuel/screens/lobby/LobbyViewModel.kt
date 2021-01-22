@@ -31,13 +31,11 @@ import okhttp3.Request
 import okhttp3.WebSocket
 import okhttp3.WebSocketListener
 
-
 /**
  * ViewModel containing all the logic needed to run the game
  */
 class LobbyViewModel(player: User) : ViewModel() {
     private val _user = MutableLiveData<User>()
-
 
     val listener = SocketListener()
     var webSocket: WebSocket? = null

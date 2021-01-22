@@ -48,9 +48,6 @@ class LobbyFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
-
-
-
        //  not here
         // Inflate view and obtain an instance of the binding class
         binding = DataBindingUtil.inflate(

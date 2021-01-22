@@ -98,10 +98,14 @@ class LoginViewModel : ViewModel() {
     }
 
 
-    fun joinRoom(roomName:String){
+    fun joinRoom(roomName: String) {
         //OKHTTP
         val client = OkHttpClient()
-        val request = Request.Builder().url("ws://spacedim.async-agency.com:8081/ws/join/" + roomName + "/1").build();
+        val request =
+            Request.Builder().url("ws://spacedim.async-agency.com:8081/ws/join/" + roomName + "/1")
+                .build();
+
+    }
 
 }
 
