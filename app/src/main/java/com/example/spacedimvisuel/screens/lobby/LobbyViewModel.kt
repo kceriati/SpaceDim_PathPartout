@@ -38,6 +38,7 @@ class LobbyViewModel(player : User) : ViewModel() {
     val listener = SocketListener()
     var webSocket: WebSocket? = null
     val gameState:MutableLiveData<SocketListener.Event> = listener.gameState
+    val lobbyUsers: MutableLiveData<List<User>> = listener.lobbyUsers
     val currentPlayer = player
 
     fun joinRoom(roomName: String, user: User){
@@ -46,6 +47,11 @@ class LobbyViewModel(player : User) : ViewModel() {
         val request = Request.Builder().url("ws://spacedim.async-agency.com:8081/ws/join/" + roomName + "/" + user.id.toString()).build();
         //WBS
         webSocket = client.newWebSocket(request, listener)
+
+    }
+
+    fun sendready(){
         webSocket?.send("{\"type\":\"READY\", \"value\":true}");
     }
+
 }

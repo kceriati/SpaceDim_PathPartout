@@ -17,6 +17,8 @@ class SocketListener: WebSocketListener(){
     //current fragment (lobby-> game-> win/lose )
     public val gameState = MutableLiveData<Event>()
     public val GameUiElements = MutableLiveData<List<UIElement>>()
+    public val GameAction = MutableLiveData<Action>()
+    public val lobbyUsers = MutableLiveData<List<User>>()
     @JsonClass(generateAdapter = true)
     enum class EventType() {
         GAME_STARTED(), GAME_OVER(), ERROR(), READY(), NEXT_ACTION(),
@@ -33,25 +35,27 @@ class SocketListener: WebSocketListener(){
         data class Error(val message: String) : Event(EventType.ERROR)
         data class Ready(val value: Boolean) : Event(EventType.READY)
         data class PlayerAction(val uiElement: UIElement): Event(EventType.PLAYER_ACTION)
+
+
     }
 
+    @JsonClass(generateAdapter = true)
     enum class UIType {
         BUTTON, SWITCH, SHAKE
     }
-
+    @JsonClass(generateAdapter = true)
     interface IElement {
         var id: Int
         val content: String
     }
-
-
+    @JsonClass(generateAdapter = true)
     sealed class UIElement(val type: UIType) : IElement {
-        data class Button(override var id: Int, override val content: String) : UIElement(UIType.BUTTON)
+        data class Button(  override var id: Int, override val content: String) : UIElement(UIType.BUTTON)
         data class Switch(override var id: Int, override val content: String) : UIElement(UIType.SWITCH)
         data class Shake(override var id: Int, override val content: String) : UIElement(UIType.SHAKE)
     }
 
-
+    @JsonClass(generateAdapter = true)
     data class Action(
         val sentence: String,
         val uiElement: UIElement,
@@ -78,7 +82,14 @@ class SocketListener: WebSocketListener(){
             var gamestarted_action = message as SocketListener.Event.GameStarted
                 GameUiElements.postValue(gamestarted_action.uiElementList)
         }
-
+        if (message?.type == EventType.NEXT_ACTION) {
+            var gamenext_action = message as SocketListener.Event.NextAction
+            GameAction.postValue(gamenext_action.action)
+        }
+        if (message?.type == EventType.WAITING_FOR_PLAYER) {
+            var lobbyWaitingForPlayer = message as SocketListener.Event.WaitingForPlayer
+            lobbyUsers.postValue(lobbyWaitingForPlayer.userList)
+        }
     }
 
     override fun onFailure(webSocket: WebSocket, t: Throwable, response: Response?) {

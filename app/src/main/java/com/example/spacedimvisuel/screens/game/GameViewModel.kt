@@ -33,6 +33,7 @@ class GameViewModel(
     var currentListener = webSocketTraveler.getlistener()
     val gameState: MutableLiveData<SocketListener.Event> = currentListener.gameState
     val gameUiElement = currentListener.GameUiElements
+    val gameNextAction = currentListener.GameAction
 
 
 }

@@ -7,7 +7,7 @@ import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 
 object PolymorphicAdapter {
 
-    private val moshiEventSerializer: Moshi = with(Moshi.Builder()) {
+    public val moshiEventSerializer: Moshi = with(Moshi.Builder()) {
         add(
             PolymorphicJsonAdapterFactory.of(SocketListener.Event::class.java,"type")
                 .withSubtype(SocketListener.Event.Ready::class.java, SocketListener.EventType.READY.name)
@@ -26,6 +26,7 @@ object PolymorphicAdapter {
                 .withSubtype(SocketListener.UIElement.Shake::class.java, SocketListener.UIType.SHAKE.name)
                 .withSubtype(SocketListener.UIElement.Switch::class.java, SocketListener.UIType.SWITCH.name)
         )
+
 
         add(KotlinJsonAdapterFactory())
         build()

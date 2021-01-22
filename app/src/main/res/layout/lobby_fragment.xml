@@ -14,6 +14,7 @@
         android:layout_height="match_parent"
         android:background="#F1F1F1"
         tools:context=".screens.lobby.LobbyFragment">
+
         <FrameLayout
             android:id="@+id/frameLayout2"
             android:layout_width="wrap_content"
@@ -27,7 +28,7 @@
                 android:id="@+id/imageView"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
-                app:srcCompat="@drawable/happyface" />
+                app:srcCompat="@drawable/sadface" />
         </FrameLayout>
 
         <FrameLayout
@@ -57,40 +58,32 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/frameLayout2">
 
-            <TextView
-                android:id="@+id/descHappy"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/notAlone" />
+
 
         </LinearLayout>
 
-<!--        <LinearLayout-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginBottom="200dp"-->
-<!--            android:orientation="horizontal"-->
-<!--            app:layout_constraintBottom_toBottomOf="@+id/cockpitBottom"-->
-<!--            app:layout_constraintEnd_toEndOf="@+id/cockpitBottom"-->
-<!--            app:layout_constraintStart_toStartOf="@+id/cockpitBottom"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/buttonready">-->
-<!--            -->
-<!--        </LinearLayout>-->
+        <!--        <LinearLayout-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginBottom="200dp"-->
+        <!--            android:orientation="horizontal"-->
+        <!--            app:layout_constraintBottom_toBottomOf="@+id/cockpitBottom"-->
+        <!--            app:layout_constraintEnd_toEndOf="@+id/cockpitBottom"-->
+        <!--            app:layout_constraintStart_toStartOf="@+id/cockpitBottom"-->
+        <!--            app:layout_constraintTop_toBottomOf="@+id/buttonready">-->
+        <!--            -->
+        <!--        </LinearLayout>-->
 
         <HorizontalScrollView
 
             android:layout_width="match_parent"
             android:layout_height="190dp"
-            android:layout_marginTop="40dp"
-            android:layout_marginBottom="200dp"
-            android:orientation="horizontal"
             android:fillViewport="true"
+            android:orientation="horizontal"
 
-            app:layout_constraintBottom_toBottomOf="@+id/cockpitBottom"
-            app:layout_constraintEnd_toEndOf="@+id/cockpitBottom"
-            app:layout_constraintStart_toStartOf="@+id/cockpitBottom"
-            app:layout_constraintTop_toBottomOf="@+id/buttonready">
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cockpitTop">
 
 
             <LinearLayout
@@ -103,13 +96,13 @@
         </HorizontalScrollView>
 
         <soup.neumorphism.NeumorphButton
-            android:id="@+id/buttonready"
+            android:id="@+id/button"
             style="@style/Widget.Neumorph.CardView"
             android:layout_width="328dp"
             android:layout_height="65dp"
             android:gravity="center"
             android:singleLine="true"
-            android:text="@string/ready"
+            android:text="JOIN A ROOM"
             android:textColor="@color/white"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -119,8 +112,6 @@
             tools:ignore="MissingConstraints">
 
         </soup.neumorphism.NeumorphButton>
-
-
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

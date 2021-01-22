@@ -6,8 +6,8 @@ import java.io.Serializable
 class MyWebsocketTraveler(webSocket: WebSocket,listener: SocketListener) :Serializable {
      var myWebSocket = webSocket
      var myListener = listener
-    fun getWebsocket(): WebSocket {        return myWebSocket
+    fun getWebsocket(): WebSocket {  return myWebSocket
     }
-    fun getlistener(): SocketListener {        return myListener
+    fun getlistener(): SocketListener {  return myListener
     }
 }
