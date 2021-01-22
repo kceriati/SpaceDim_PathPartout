@@ -86,23 +86,39 @@ class LobbyFragment : Fragment() {
        /* println("REPONSE REUSSIE : " + this.viewModel.mainActivityBridge.getLoginVMTraveler())*/
 
 
-        lobbyUserObserver = Observer<List<User>>{ users ->
-                drawUsers(users)
-        }
-        viewModel.lobbyUsers.observe(viewLifecycleOwner, lobbyUserObserver)
 
 
 
 
         val gameStarterObserver = Observer<SocketListener.Event> { newState ->
-            if (newState.type == SocketListener.EventType.GAME_STARTED ) {
+            if (newState.type == SocketListener.EventType.WAITING_FOR_PLAYER) {
+                var lobbywaitforplayer_action = newState as SocketListener.Event.WaitingForPlayer
+                drawUsers(lobbywaitforplayer_action.userList)
+                var alluserrdy = true
+                for (user in lobbywaitforplayer_action.userList){
+                   if(user.state ==State.WAITING){
+                       alluserrdy = false
+                   }
+                }
+                if (alluserrdy){
+                    println("jenaviguedeouf")
+                    val action = LobbyFragmentDirections.actionLobbyDestinationToGameDestination(viewModel.currentPlayer, MyWebsocketTraveler(viewModel.webSocket!!, viewModel.listener))
+                    //action.user = viewModel.userFromAPI.value!!
+                    NavHostFragment.findNavController(this).navigate(action)
+
+                }
+
+            }
+
+
+           /* if (newState.type == SocketListener.EventType.GAME_STARTED ) {
                 val action = LobbyFragmentDirections.actionLobbyDestinationToGameDestination(
                     viewModel.currentPlayer,
                     MyWebsocketTraveler(viewModel.webSocket!!, viewModel.listener)
                 )
                 //action.user = viewModel.userFromAPI.value!!
                 NavHostFragment.findNavController(this).navigate(action)
-            }
+            }*/
         }
         viewModel.gameState.observe(viewLifecycleOwner, gameStarterObserver)
 

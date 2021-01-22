@@ -100,25 +100,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/terminal">
 
-            <TableRow
-                android:id="@+id/row1"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1" />
-
-            <TableRow
-                android:id="@+id/row2"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_weight="1">
-
-            </TableRow>
-
-            <TableRow
-                android:id="@+id/row3"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"></TableRow>
 
         </TableLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

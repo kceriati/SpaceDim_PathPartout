@@ -55,8 +55,7 @@ class GameFragment : Fragment() {
     private lateinit var viewModel: GameViewModel
     //les observers
     private lateinit var gameStateObserver : Observer<SocketListener.Event>
-    private lateinit var uiComponentObserver : Observer<List<SocketListener.UIElement>>
-    private lateinit var nextActionObserver : Observer<SocketListener.Action>
+    private lateinit var gameUiObserver : Observer<List<SocketListener.UIElement>>
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -75,29 +74,39 @@ class GameFragment : Fragment() {
         //binding.buttonwin.setOnClickListener  { nextScreenWin()  }
 
          gameStateObserver = Observer<SocketListener.Event> { newState ->
-            if(newState.type == SocketListener.EventType.GAME_OVER) {
-                var gameover_action = newState as SocketListener.Event.GameOver
-                if (gameover_action.win) {
-                    nextScreenWin()
-                }
-                else{
-                    nextScreenLose()
-                }
-            }
+             if(newState.type == SocketListener.EventType.GAME_OVER) {
+                 var gameover_action = newState as SocketListener.Event.GameOver
+                 if (gameover_action.win) {
+                     nextScreenWin()
+                 }
+                 else{
+                     nextScreenLose()
+                 }
+             }
+
+             if(newState.type == SocketListener.EventType.NEXT_LEVEL) {
+                 var gamenextlevel_action = newState as SocketListener.Event.NextLevel
+
+                 buildButtons(gamenextlevel_action.uiElementList)
+             }
+             if(newState.type == SocketListener.EventType.NEXT_ACTION){
+                 var gamenextaction_action = newState as SocketListener.Event.NextAction
+                 sendaction(gamenextaction_action.action)
+             }
          }
         viewModel.gameState.observe(viewLifecycleOwner, gameStateObserver)
 
-        uiComponentObserver = Observer<List<SocketListener.UIElement>>{ elements ->
+
+        gameUiObserver = Observer<List<SocketListener.UIElement>> { elements  ->
             buildButtons(elements)
+
         }
-        viewModel.gameUiElement.observe(viewLifecycleOwner, uiComponentObserver)
+        viewModel.gameUi.observe(viewLifecycleOwner, gameUiObserver)
 
-
-
-        nextActionObserver = Observer<SocketListener.Action>{ action ->
-            sendaction(action)
-        }
-        viewModel.gameNextAction.observe(viewLifecycleOwner, nextActionObserver)
+//        nextActionObserver = Observer<SocketListener.Action>{ action ->
+//            sendaction(action)
+//        }
+//        viewModel.gameNextAction.observe(viewLifecycleOwner, nextActionObserver)
 
         return binding.root
     }
@@ -105,16 +114,16 @@ class GameFragment : Fragment() {
 
     private fun nextScreenLose() {
         viewModel.gameState.removeObserver(gameStateObserver)
-        viewModel.gameNextAction.removeObserver(nextActionObserver)
-        viewModel.gameUiElement.removeObserver(uiComponentObserver)
+//        viewModel.gameNextAction.removeObserver(nextActionObserver)
+//        viewModel.gameUiElement.removeObserver(uiComponentObserver)
         val action = GameFragmentDirections.actionGameDestinationToLoseDestination()
         NavHostFragment.findNavController(this).navigate(action)
     }
 
     private fun nextScreenWin() {
         viewModel.gameState.removeObserver(gameStateObserver)
-        viewModel.gameNextAction.removeObserver(nextActionObserver)
-        viewModel.gameUiElement.removeObserver(uiComponentObserver)
+//        viewModel.gameNextAction.removeObserver(nextActionObserver)
+//        viewModel.gameUiElement.removeObserver(uiComponentObserver)
         val action = GameFragmentDirections.actionGameDestinationToWinDestination()
         NavHostFragment.findNavController(this).navigate(action)
     }
@@ -122,31 +131,37 @@ class GameFragment : Fragment() {
     private fun buildButtons(elements: List<SocketListener.UIElement>){
         var itemperrow = 2
         var count = 0
-        var currentrowindex = 0
-        if (elements.size<5){
-            binding.table.removeView(binding.row3)
-        }
-        var listofrow = listOf<TableRow>()
-        listofrow += binding.row1
-        listofrow += binding.row2
-        listofrow += binding.row3
+        binding.table.removeAllViews()
+
+
+        var currenttablerow = createTablerow()
         for (element in elements) {
             if (element.type ==SocketListener.UIType.SWITCH)
-                createSwitch(listofrow[currentrowindex],element)
+                createSwitch(currenttablerow,element)
             else if (element.type == SocketListener.UIType.BUTTON)
-                createButton(listofrow[currentrowindex],element)
+                createButton(currenttablerow,element)
             count++
             if (count >= itemperrow) {
             count = 0;
-            currentrowindex++
+            binding.table.addView(currenttablerow)
+            currenttablerow = createTablerow()
             }
         }
     }
 
-    private fun createButton(
-        row: TableRow,
-        element: SocketListener.UIElement
-    )  {
+    private fun createTablerow() :  TableRow {
+        val inflater =LayoutInflater.from(this.context)
+        val table = inflater.inflate(
+            R.layout.tablerow,
+            binding.table,
+            false
+        ) as TableRow
+
+       return table
+
+
+    }
+    private fun createButton(row: TableRow,element: SocketListener.UIElement)  {
         val inflater =LayoutInflater.from(this.context)
         val button = inflater.inflate(
                 R.layout.button_only,
@@ -182,6 +197,7 @@ class GameFragment : Fragment() {
     private fun sendaction(action:SocketListener.Action){
         binding.edittext.text = action.sentence
     }
+
 
 }
 
