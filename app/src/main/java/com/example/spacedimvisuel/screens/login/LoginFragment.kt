@@ -87,6 +87,8 @@ class LoginFragment : Fragment() {
             //viewModel.joinRoom("FuckThisOkHttpThingyEatMyShit")
         }
 
+
+
         val mSensorListener: SensorEventListener = object : SensorEventListener {
             override fun onSensorChanged(event: SensorEvent) {
                 val x = event.values[0]
