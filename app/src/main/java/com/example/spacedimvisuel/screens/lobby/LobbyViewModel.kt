@@ -36,7 +36,6 @@ class LobbyViewModel(player : User) : ViewModel() {
     val listener = SocketListener()
     var webSocket: WebSocket? = null
     val gameState:MutableLiveData<SocketListener.Event> = listener.gameState
-    val lobbyUsers: MutableLiveData<List<User>> = listener.lobbyUsers
     val currentPlayer = player
 
     fun joinRoom(roomName: String, user: User){
@@ -48,6 +47,7 @@ class LobbyViewModel(player : User) : ViewModel() {
     }
 
     fun sendready(){
+        //TODO generate this (ez)
         webSocket?.send("{\"type\":\"READY\", \"value\":true}");
     }
 

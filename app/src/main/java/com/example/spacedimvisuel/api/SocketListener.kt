@@ -16,9 +16,7 @@ class   SocketListener: WebSocketListener(){
 
     //current fragment (lobby-> game-> win/lose )
     public val gameState = MutableLiveData<Event>()
-    public val GameUiElements = MutableLiveData<List<UIElement>>()
-    public val GameAction = MutableLiveData<Action>()
-    public val lobbyUsers = MutableLiveData<List<User>>()
+    public val gameUi =  MutableLiveData<List<UIElement>>()
     @JsonClass(generateAdapter = true)
     enum class EventType() {
         GAME_STARTED(), GAME_OVER(), ERROR(), READY(), NEXT_ACTION(),
@@ -75,21 +73,19 @@ class   SocketListener: WebSocketListener(){
 
         var message = eventGameParser.fromJson(response);
 
-        //on envoie les event que l'on resoit dans un livedata
+        //on envoie les event que l'on reçu dans un livedata
         gameState.postValue(message);
-
         if (message?.type == EventType.GAME_STARTED) {
             var gamestarted_action = message as SocketListener.Event.GameStarted
-                GameUiElements.postValue(gamestarted_action.uiElementList)
+            gameUi.postValue(gamestarted_action.uiElementList)
         }
-        if (message?.type == EventType.NEXT_ACTION) {
-            var gamenext_action = message as SocketListener.Event.NextAction
-            GameAction.postValue(gamenext_action.action)
+
+        if (message?.type == EventType.NEXT_LEVEL){
+            var gamenextlevel_action = message as SocketListener.Event.NextLevel
+            gameUi.postValue(gamenextlevel_action.uiElementList)
         }
-        if (message?.type == EventType.WAITING_FOR_PLAYER) {
-            var lobbyWaitingForPlayer = message as SocketListener.Event.WaitingForPlayer
-            lobbyUsers.postValue(lobbyWaitingForPlayer.userList)
-        }
+
+
     }
 
     override fun onFailure(webSocket: WebSocket, t: Throwable, response: Response?) {
