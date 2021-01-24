@@ -248,6 +248,7 @@ class GameFragment : Fragment() {
             content.contains("plaindre") -> button.setImageResource(R.drawable.stop_complaining_crying)
             content.contains("chez") -> button.setImageResource(R.drawable.stay_home)
             content.contains("vie") -> button.setImageResource(R.drawable.quarante_deux)
+            content.contains("laser") -> button.setImageResource(R.drawable.laser)
             else -> button.setImageResource(R.drawable.clouds)
         }
         row.addView(button)
