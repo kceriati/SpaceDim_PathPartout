@@ -29,9 +29,11 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.Switch
 import android.widget.TableRow
 import android.widget.TextView
+import androidx.core.graphics.drawable.toDrawable
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -73,6 +75,8 @@ class GameFragment : Fragment() {
     private var mAccelCurrent = 0f
     private var mAccelLast = 0f
     private var currentShakeListenerAction: SocketListener.UIElement? = null
+
+    private var TAG = "GameFragment"
 
 
     override fun onCreateView(
@@ -234,9 +238,18 @@ class GameFragment : Fragment() {
             R.layout.button_only,
             row,
             false
-        ) as NeumorphButton
+        ) as NeumorphImageButton
         button.setOnClickListener { sendelementclick(element) }
-        button.text = element.content
+        val content = element.content.toLowerCase()
+        when{
+            content.contains("café") -> button.setImageResource(R.drawable.cafe)
+            content.contains("gaz") -> button.setImageResource(R.drawable.too_much_gaz)
+            content.contains("bombe") -> button.setImageResource(R.drawable.rocket_icon)
+            content.contains("plaindre") -> button.setImageResource(R.drawable.stop_complaining_crying)
+            content.contains("chez") -> button.setImageResource(R.drawable.stay_home)
+            content.contains("vie") -> button.setImageResource(R.drawable.quarante_deux)
+            else -> button.setImageResource(R.drawable.clouds)
+        }
         row.addView(button)
 
     }
@@ -251,7 +264,15 @@ class GameFragment : Fragment() {
             row,
             false
         ) as NeumorphCardView
-        switch.findViewById<TextView>(R.id.temptext).text = element.content
+        val content = element.content
+        when {
+            content.toLowerCase().contains("hyper") -> switch.findViewById<ImageView>(R.id.image).setImageResource(R.drawable.hyper_prop)
+            content.toLowerCase().contains("téléporteur") -> switch.findViewById<ImageView>(R.id.image).setImageResource(R.drawable.teleport)
+            content.toLowerCase().contains("gravité") -> switch.findViewById<ImageView>(R.id.image).setImageResource(R.drawable.gravity)
+            content.toLowerCase().contains("bouclier") -> switch.findViewById<ImageView>(R.id.image).setImageResource(R.drawable.bouclier2)
+            content.toLowerCase().contains("covid") -> switch.findViewById<ImageView>(R.id.image).setImageResource(R.drawable.vaccin)
+        }
+        switch.findViewById<TextView>(R.id.temptext).text = content
         switch.findViewById<Switch>(R.id.switch1).setOnClickListener { sendelementclick(element) }
         row.addView(switch)
     }
