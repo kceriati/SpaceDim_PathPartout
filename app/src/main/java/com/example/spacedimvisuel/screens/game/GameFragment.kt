@@ -29,10 +29,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.Switch
-import android.widget.TableRow
-import android.widget.TextView
+import android.widget.*
 import androidx.core.graphics.drawable.toDrawable
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -49,6 +46,7 @@ import com.example.spacedimvisuel.databinding.GameFragmentBinding
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import org.w3c.dom.Text
 import soup.neumorphism.NeumorphButton
 import soup.neumorphism.NeumorphCardView
 import soup.neumorphism.NeumorphImageButton
@@ -275,6 +273,17 @@ class GameFragment : Fragment() {
         }
         switch.findViewById<TextView>(R.id.temptext).text = content
         switch.findViewById<Switch>(R.id.switch1).setOnClickListener { sendelementclick(element) }
+        switch.findViewById<Switch>(R.id.switch1).setOnCheckedChangeListener { _, isChecked ->
+            if(isChecked){
+                when {
+                    content.toLowerCase().contains("hyper") -> binding.action.text = "Désactive l'hyper-propulseur"
+                    content.toLowerCase().contains("téléporteur") -> binding.action.text = "Éteindre le téléporteur"
+                    content.toLowerCase().contains("gravité") -> binding.action.text = "Repasser la gravité à la normale"
+                    content.toLowerCase().contains("bouclier") -> binding.action.text = "Il faut désactiver les boucliers"
+                    content.toLowerCase().contains("covid") -> binding.action.text = "Cacher le vaccin contre la covid"
+                }
+            }
+        }
         row.addView(switch)
     }
 
@@ -298,7 +307,7 @@ class GameFragment : Fragment() {
     }
 
     private fun sendaction(action: SocketListener.Action) {
-        binding.edittext.text = action.sentence
+        binding.action.text = action.sentence
     }
 
 
