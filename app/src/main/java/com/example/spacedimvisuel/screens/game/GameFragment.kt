@@ -247,6 +247,7 @@ class GameFragment : Fragment() {
             content.contains("chez") -> button.setImageResource(R.drawable.stay_home)
             content.contains("vie") -> button.setImageResource(R.drawable.quarante_deux)
             content.contains("laser") -> button.setImageResource(R.drawable.laser)
+            content.contains("turbine") -> button.setImageResource(R.drawable.turbine)
             else -> button.setImageResource(R.drawable.clouds)
         }
         row.addView(button)
@@ -294,6 +295,7 @@ class GameFragment : Fragment() {
             )
         )
     }
+
 
     private fun sendaction(action: SocketListener.Action) {
         binding.actionDesc.text = action.sentence
