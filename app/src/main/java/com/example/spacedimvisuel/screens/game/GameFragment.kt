@@ -180,7 +180,7 @@ class GameFragment : Fragment() {
         viewModel.gameState.removeObserver(gameStateObserver)
 //        viewModel.gameNextAction.removeObserver(nextActionObserver)
 //        viewModel.gameUiElement.removeObserver(uiComponentObserver)
-        val action = GameFragmentDirections.actionGameDestinationToLoseDestination()
+        val action = GameFragmentDirections.actionGameDestinationToLoseDestination(viewModel.myPlayer)
         viewModel.currentWebSocket.close(1000,"Game ends");
         NavHostFragment.findNavController(this).navigate(action)
     }
@@ -189,7 +189,7 @@ class GameFragment : Fragment() {
         viewModel.gameState.removeObserver(gameStateObserver)
 //        viewModel.gameNextAction.removeObserver(nextActionObserver)
 //        viewModel.gameUiElement.removeObserver(uiComponentObserver)
-        val action = GameFragmentDirections.actionGameDestinationToWinDestination()
+        val action = GameFragmentDirections.actionGameDestinationToWinDestination(viewModel.myPlayer)
         viewModel.currentWebSocket.close(1000,"Game ends");
         NavHostFragment.findNavController(this).navigate(action)
     }

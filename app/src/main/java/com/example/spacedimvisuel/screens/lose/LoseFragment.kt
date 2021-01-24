@@ -29,6 +29,9 @@ import androidx.navigation.fragment.NavHostFragment
 import com.example.spacedimvisuel.R
 import com.example.spacedimvisuel.databinding.LoseFragmentBinding
 import com.example.spacedimvisuel.screens.game.GameFragmentDirections
+import com.example.spacedimvisuel.screens.win.WinFragmentArgs
+import com.example.spacedimvisuel.screens.win.WinViewModel
+import com.example.spacedimvisuel.screens.win.WinViewModelFactory
 
 
 /**
@@ -38,13 +41,17 @@ class LoseFragment : Fragment() {
 
 
     private lateinit var binding: LoseFragmentBinding
-
-
     private lateinit var viewModel: LoseViewModel
+    private lateinit var viewModelFactory: LoseViewModelFactory
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
+
+        viewModelFactory = LoseViewModelFactory(
+                LoseFragmentArgs.fromBundle(requireArguments()).user
+        )
+        viewModel = ViewModelProvider(this, viewModelFactory).get(LoseViewModel::class.java)
 
         // Inflate view and obtain an instance of the binding class
         binding = DataBindingUtil.inflate(
@@ -58,7 +65,8 @@ class LoseFragment : Fragment() {
 
     }
     private fun nextScreen() {
-        val action = LoseFragmentDirections.actionLoseDestinationToLoginDestination()
+       /* val action = LoseFragmentDirections.actionLoseDestinationToLoginDestination()*/
+        val action = LoseFragmentDirections.actionLoseDestinationToLobbyDestination(viewModel.myPlayer)
         NavHostFragment.findNavController(this).navigate(action)
     }
 }
