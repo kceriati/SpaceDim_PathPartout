@@ -14,6 +14,24 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <FrameLayout
+            android:id="@+id/frameLayout3"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerInside"
+
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/image"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
+        </FrameLayout>
+
         <soup.neumorphism.NeumorphCardView
             android:id="@+id/progressbarcontainer"
             style="@style/Widget.Neumorph.CardView"
@@ -23,26 +41,27 @@
             android:layout_height="50dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.555"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/frameLayout3"
             app:neumorph_shadowElevation="3dp"
             app:neumorph_shapeType="basin"
             tools:ignore="MissingConstraints">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                >
+                android:layout_height="wrap_content">
 
                 <Switch
                     android:id="@+id/switch1"
                     android:layout_width="100dp"
                     android:layout_height="26dp"
-                    android:switchMinWidth="100dp"
                     android:showText="false"
+                    android:switchMinWidth="100dp"
 
 
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
                     tools:layout_editor_absoluteY="0dp" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -53,8 +72,10 @@
             android:layout_width="107dp"
             android:layout_height="19dp"
 
-            tools:layout_editor_absoluteX="9dp"
-            tools:layout_editor_absoluteY="16dp" />
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/progressbarcontainer" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

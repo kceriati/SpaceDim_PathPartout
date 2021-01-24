@@ -16,15 +16,24 @@
 
 package com.example.spacedimvisuel.screens.game
 
+import android.animation.ValueAnimator
+import android.content.Context
+import android.graphics.Color
+import android.hardware.Sensor
+import android.hardware.SensorEvent
+import android.hardware.SensorEventListener
+import android.hardware.SensorManager
 import android.os.Bundle
 import android.util.JsonWriter
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.Switch
 import android.widget.TableRow
 import android.widget.TextView
+import androidx.core.graphics.drawable.toDrawable
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -43,6 +52,8 @@ import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import soup.neumorphism.NeumorphButton
 import soup.neumorphism.NeumorphCardView
 import soup.neumorphism.NeumorphImageButton
+import java.util.*
+import kotlin.math.ln
 
 
 /**
@@ -53,51 +64,77 @@ class GameFragment : Fragment() {
     private lateinit var binding: GameFragmentBinding
     private lateinit var viewModelFactory: GameViewModelFactory
     private lateinit var viewModel: GameViewModel
-    //les observers
-    private lateinit var gameStateObserver : Observer<SocketListener.Event>
-    private lateinit var gameUiObserver : Observer<List<SocketListener.UIElement>>
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    //les observers
+    private lateinit var gameStateObserver: Observer<SocketListener.Event>
+    private lateinit var gameUiObserver: Observer<List<SocketListener.UIElement>>
+
+    //color state of progress bar
+    private var mSensorManager: SensorManager? = null
+    private var mAccel = 0f
+    private var mAccelCurrent = 0f
+    private var mAccelLast = 0f
+    private var currentShakeListenerAction: SocketListener.UIElement? = null
+
+    private var TAG = "GameFragment"
+
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
 
         // Inflate view and obtain an instance of the binding class
         binding = DataBindingUtil.inflate(
-                inflater,
-                R.layout.game_fragment,
-                container,
-                false
+            inflater,
+            R.layout.game_fragment,
+            container,
+            false
         )
 
-        viewModelFactory = GameViewModelFactory(GameFragmentArgs.fromBundle(requireArguments()).user,GameFragmentArgs.fromBundle(requireArguments()).webSocket)
+        viewModelFactory = GameViewModelFactory(
+            GameFragmentArgs.fromBundle(requireArguments()).user,
+            GameFragmentArgs.fromBundle(requireArguments()).webSocket
+        )
         viewModel = ViewModelProvider(this, viewModelFactory).get(GameViewModel::class.java)
         //binding.buttonlose.setOnClickListener { nextScreenLose() }
         //binding.buttonwin.setOnClickListener  { nextScreenWin()  }
 
-         gameStateObserver = Observer<SocketListener.Event> { newState ->
-             if(newState.type == SocketListener.EventType.GAME_OVER) {
-                 var gameover_action = newState as SocketListener.Event.GameOver
-                 if (gameover_action.win) {
-                     nextScreenWin()
-                 }
-                 else{
-                     nextScreenLose()
-                 }
-             }
+        val valueAnimator = ValueAnimator.ofInt(0, 255)
+        valueAnimator.addUpdateListener {
 
-             if(newState.type == SocketListener.EventType.NEXT_LEVEL) {
-                 var gamenextlevel_action = newState as SocketListener.Event.NextLevel
+            color_variation(valueAnimator.animatedValue as Int)
+        }
 
-                 buildButtons(gamenextlevel_action.uiElementList)
-             }
-             if(newState.type == SocketListener.EventType.NEXT_ACTION){
-                 var gamenextaction_action = newState as SocketListener.Event.NextAction
-                 sendaction(gamenextaction_action.action)
-             }
-         }
+
+
+        gameStateObserver = Observer<SocketListener.Event> { newState ->
+            if (newState.type == SocketListener.EventType.GAME_OVER) {
+                var gameover_action = newState as SocketListener.Event.GameOver
+                if (gameover_action.win) {
+                    nextScreenWin()
+                } else {
+                    nextScreenLose()
+                }
+            }
+
+            if (newState.type == SocketListener.EventType.NEXT_LEVEL) {
+                var gamenextlevel_action = newState as SocketListener.Event.NextLevel
+
+                buildButtons(gamenextlevel_action.uiElementList)
+            }
+            if (newState.type == SocketListener.EventType.NEXT_ACTION) {
+                var gamenextaction_action = newState as SocketListener.Event.NextAction
+                valueAnimator.end()
+                valueAnimator.duration = gamenextaction_action.action.time
+                valueAnimator.start()
+                sendaction(gamenextaction_action.action)
+            }
+        }
         viewModel.gameState.observe(viewLifecycleOwner, gameStateObserver)
 
 
-        gameUiObserver = Observer<List<SocketListener.UIElement>> { elements  ->
+        gameUiObserver = Observer<List<SocketListener.UIElement>> { elements ->
             buildButtons(elements)
 
         }
@@ -107,6 +144,33 @@ class GameFragment : Fragment() {
 //            sendaction(action)
 //        }
 //        viewModel.gameNextAction.observe(viewLifecycleOwner, nextActionObserver)
+
+        val mSensorListener: SensorEventListener = object : SensorEventListener {
+            override fun onSensorChanged(event: SensorEvent) {
+                val x = event.values[0]
+                val y = event.values[1]
+                val z = event.values[2]
+                mAccelLast = mAccelCurrent
+                mAccelCurrent = Math.sqrt((x * x + y * y + z * z).toDouble()).toFloat()
+                val delta = mAccelCurrent - mAccelLast
+                mAccel = mAccel * 0.9f + delta
+                if (mAccel > 12) {
+                    println("je v vomir ")
+                    currentShakeListenerAction?.let { sendelementclick(it) }
+                }
+            }
+
+            override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {}
+        }
+
+        mSensorManager = getActivity()?.getSystemService(Context.SENSOR_SERVICE) as SensorManager;
+        Objects.requireNonNull(mSensorManager)?.registerListener(
+            mSensorListener, mSensorManager!!.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
+            SensorManager.SENSOR_DELAY_NORMAL
+        );
+        mAccel = 10f;
+        mAccelCurrent = SensorManager.GRAVITY_EARTH;
+        mAccelLast = SensorManager.GRAVITY_EARTH;
 
         return binding.root
     }
@@ -128,7 +192,8 @@ class GameFragment : Fragment() {
         NavHostFragment.findNavController(this).navigate(action)
     }
 
-    private fun buildButtons(elements: List<SocketListener.UIElement>){
+    private fun buildButtons(elements: List<SocketListener.UIElement>) {
+        currentShakeListenerAction = null
         var itemperrow = 2
         var count = 0
         binding.table.removeAllViews()
@@ -136,40 +201,55 @@ class GameFragment : Fragment() {
 
         var currenttablerow = createTablerow()
         for (element in elements) {
-            if (element.type ==SocketListener.UIType.SWITCH)
-                createSwitch(currenttablerow,element)
+            if (element.type == SocketListener.UIType.SWITCH)
+                createSwitch(currenttablerow, element)
             else if (element.type == SocketListener.UIType.BUTTON)
-                createButton(currenttablerow,element)
+                createButton(currenttablerow, element)
+            else if (element.type == SocketListener.UIType.SHAKE) {
+                createShake(element)
+                count--
+            }
+
             count++
             if (count >= itemperrow) {
-            count = 0;
-            binding.table.addView(currenttablerow)
-            currenttablerow = createTablerow()
+                count = 0;
+                binding.table.addView(currenttablerow)
+                currenttablerow = createTablerow()
             }
         }
     }
 
-    private fun createTablerow() :  TableRow {
-        val inflater =LayoutInflater.from(this.context)
+    private fun createTablerow(): TableRow {
+        val inflater = LayoutInflater.from(this.context)
         val table = inflater.inflate(
             R.layout.tablerow,
             binding.table,
             false
         ) as TableRow
 
-       return table
+        return table
 
 
     }
-    private fun createButton(row: TableRow,element: SocketListener.UIElement)  {
-        val inflater =LayoutInflater.from(this.context)
+
+    private fun createButton(row: TableRow, element: SocketListener.UIElement) {
+        val inflater = LayoutInflater.from(this.context)
         val button = inflater.inflate(
-                R.layout.button_only,
-                row,
-                false
-        ) as NeumorphButton
+            R.layout.button_only,
+            row,
+            false
+        ) as NeumorphImageButton
         button.setOnClickListener { sendelementclick(element) }
-        button.text = element.content
+        val content = element.content.toLowerCase()
+        when{
+            content.contains("café") -> button.setImageResource(R.drawable.cafe)
+            content.contains("gaz") -> button.setImageResource(R.drawable.too_much_gaz)
+            content.contains("bombe") -> button.setImageResource(R.drawable.rocket_icon)
+            content.contains("plaindre") -> button.setImageResource(R.drawable.stop_complaining_crying)
+            content.contains("chez") -> button.setImageResource(R.drawable.stay_home)
+            content.contains("vie") -> button.setImageResource(R.drawable.quarante_deux)
+            else -> button.setImageResource(R.drawable.clouds)
+        }
         row.addView(button)
 
     }
@@ -177,27 +257,73 @@ class GameFragment : Fragment() {
     private fun createSwitch(
         row: TableRow,
         element: SocketListener.UIElement
-    )  {
-        val inflater =LayoutInflater.from(this.context)
+    ) {
+        val inflater = LayoutInflater.from(this.context)
         val switch = inflater.inflate(
-                R.layout.switch_only,
-                row,
-                false
+            R.layout.switch_only,
+            row,
+            false
         ) as NeumorphCardView
-        switch.findViewById<TextView>(R.id.temptext).text = element.content
+        val content = element.content
+        when {
+            content.toLowerCase().contains("hyper") -> switch.findViewById<ImageView>(R.id.image).setImageResource(R.drawable.hyper_prop)
+            content.toLowerCase().contains("téléporteur") -> switch.findViewById<ImageView>(R.id.image).setImageResource(R.drawable.teleport)
+            content.toLowerCase().contains("gravité") -> switch.findViewById<ImageView>(R.id.image).setImageResource(R.drawable.gravity)
+            content.toLowerCase().contains("bouclier") -> switch.findViewById<ImageView>(R.id.image).setImageResource(R.drawable.bouclier2)
+            content.toLowerCase().contains("covid") -> switch.findViewById<ImageView>(R.id.image).setImageResource(R.drawable.vaccin)
+        }
+        switch.findViewById<TextView>(R.id.temptext).text = content
         switch.findViewById<Switch>(R.id.switch1).setOnClickListener { sendelementclick(element) }
         row.addView(switch)
     }
 
-    private fun sendelementclick(element: SocketListener.UIElement){
-        Log.i("yo",PolymorphicAdapter.eventGameParser.toJson(SocketListener.Event.PlayerAction(element)))
-       // viewModel.currentWebSocket.send("{\"type\":\"READY\", \"value\":true}");
-       viewModel.currentWebSocket.send(PolymorphicAdapter.eventGameParser.toJson(SocketListener.Event.PlayerAction(element)))
+    private fun createShake(element: SocketListener.UIElement) {
+        currentShakeListenerAction = element
     }
-    private fun sendaction(action:SocketListener.Action){
+
+    private fun sendelementclick(element: SocketListener.UIElement) {
+        Log.i(
+            "yo",
+            PolymorphicAdapter.eventGameParser.toJson(SocketListener.Event.PlayerAction(element))
+        )
+        // viewModel.currentWebSocket.send("{\"type\":\"READY\", \"value\":true}");
+        viewModel.currentWebSocket.send(
+            PolymorphicAdapter.eventGameParser.toJson(
+                SocketListener.Event.PlayerAction(
+                    element
+                )
+            )
+        )
+    }
+
+    private fun sendaction(action: SocketListener.Action) {
         binding.edittext.text = action.sentence
     }
 
 
+    fun my_gradient(value: Int): Int {
+        """
+           the value should be between 0 and 255 
+           with red at 255 
+           and green at 0
+        """
+        var valid_value = value % 255
+        val r = 102.212 * ln(0.0742904 * valid_value - 5.21849) - 12.7193
+        val g = 38.2662 * ln(64.7518 - 0.324171 * valid_value) + 95.4575
+        val b = 0 + 100
+
+        return Color.argb(
+            255,
+            if (r < 0) 100 else if (r + 100 > 255) 255 else r.toInt() + 100,
+            if (g < 0) 100 else if (g + 100 > 255) 255 else g.toInt() + 100,
+            b.toInt()
+        )
+    }
+
+    fun color_variation(progressbar_color : Int) {
+        val progressbar: NeumorphCardView = binding.progressbar
+        progressbar.setBackgroundColor(my_gradient(progressbar_color))
+
+    }
 }
 

@@ -90,18 +90,24 @@ class LobbyFragment : Fragment() {
             if (newState.type == SocketListener.EventType.WAITING_FOR_PLAYER) {
                 var lobbywaitforplayer_action = newState as SocketListener.Event.WaitingForPlayer
                 drawUsers(lobbywaitforplayer_action.userList)
-                var alluserrdy = true
-                for (user in lobbywaitforplayer_action.userList){
-                   if(user.state ==State.WAITING){
-                       alluserrdy = false
-                   }
-                }
-                if (alluserrdy){
-                    println("jenaviguedeouf")
-                    val action = LobbyFragmentDirections.actionLobbyDestinationToGameDestination(viewModel.currentPlayer, MyWebsocketTraveler(viewModel.webSocket!!, viewModel.listener))
-                    //action.user = viewModel.userFromAPI.value!!
-                    NavHostFragment.findNavController(this).navigate(action)
+                if (lobbywaitforplayer_action.userList.size > 1) {
+                    var alluserrdy = true
+                    for (user in lobbywaitforplayer_action.userList) {
+                        if (user.state == State.WAITING) {
+                            alluserrdy = false
+                        }
+                    }
+                    if (alluserrdy) {
+                        println("jenaviguedeouf")
+                        val action =
+                            LobbyFragmentDirections.actionLobbyDestinationToGameDestination(
+                                viewModel.currentPlayer,
+                                MyWebsocketTraveler(viewModel.webSocket!!, viewModel.listener)
+                            )
+                        //action.user = viewModel.userFromAPI.value!!
+                        NavHostFragment.findNavController(this).navigate(action)
 
+                    }
                 }
 
             }
