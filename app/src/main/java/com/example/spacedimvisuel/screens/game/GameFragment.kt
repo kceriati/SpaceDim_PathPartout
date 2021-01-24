@@ -273,17 +273,6 @@ class GameFragment : Fragment() {
         }
         switch.findViewById<TextView>(R.id.temptext).text = content
         switch.findViewById<Switch>(R.id.switch1).setOnClickListener { sendelementclick(element) }
-        switch.findViewById<Switch>(R.id.switch1).setOnCheckedChangeListener { _, isChecked ->
-            if(isChecked){
-                when {
-                    content.toLowerCase().contains("hyper") -> binding.action.text = "Désactive l'hyper-propulseur"
-                    content.toLowerCase().contains("téléporteur") -> binding.action.text = "Éteindre le téléporteur"
-                    content.toLowerCase().contains("gravité") -> binding.action.text = "Repasser la gravité à la normale"
-                    content.toLowerCase().contains("bouclier") -> binding.action.text = "Il faut désactiver les boucliers"
-                    content.toLowerCase().contains("covid") -> binding.action.text = "Cacher le vaccin contre la covid"
-                }
-            }
-        }
         row.addView(switch)
     }
 
@@ -307,7 +296,7 @@ class GameFragment : Fragment() {
     }
 
     private fun sendaction(action: SocketListener.Action) {
-        binding.action.text = action.sentence
+        binding.actionDesc.text = action.sentence
     }
 
 
