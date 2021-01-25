@@ -29,10 +29,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.Switch
-import android.widget.TableRow
-import android.widget.TextView
+import android.widget.*
 import androidx.core.graphics.drawable.toDrawable
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -49,6 +46,7 @@ import com.example.spacedimvisuel.databinding.GameFragmentBinding
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import org.w3c.dom.Text
 import soup.neumorphism.NeumorphButton
 import soup.neumorphism.NeumorphCardView
 import soup.neumorphism.NeumorphImageButton
@@ -248,6 +246,8 @@ class GameFragment : Fragment() {
             content.contains("plaindre") -> button.setImageResource(R.drawable.stop_complaining_crying)
             content.contains("chez") -> button.setImageResource(R.drawable.stay_home)
             content.contains("vie") -> button.setImageResource(R.drawable.quarante_deux)
+            content.contains("laser") -> button.setImageResource(R.drawable.laser)
+            content.contains("turbine") -> button.setImageResource(R.drawable.turbine)
             else -> button.setImageResource(R.drawable.clouds)
         }
         row.addView(button)
@@ -296,8 +296,9 @@ class GameFragment : Fragment() {
         )
     }
 
+
     private fun sendaction(action: SocketListener.Action) {
-        binding.edittext.text = action.sentence
+        binding.actionDesc.text = action.sentence
     }
 
 
