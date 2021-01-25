@@ -22,6 +22,7 @@ import com.example.spacedimvisuel.api.User
 /**
  * ViewModel containing all the logic needed to run the game
  */
-class LoseViewModel(player: User) : ViewModel() {
-    var myPlayer = player;
+class LoseViewModel(player: User, scoreFinal: Int) : ViewModel() {
+    var myPlayer = player
+    var scoreFinal = scoreFinal
 }

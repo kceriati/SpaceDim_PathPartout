@@ -43,7 +43,8 @@ class LoseFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
 
         viewModelFactory = LoseViewModelFactory(
-                LoseFragmentArgs.fromBundle(requireArguments()).user
+                LoseFragmentArgs.fromBundle(requireArguments()).user,
+                LoseFragmentArgs.fromBundle(requireArguments()).scoreFinal
         )
         viewModel = ViewModelProvider(this, viewModelFactory).get(LoseViewModel::class.java)
 
@@ -54,7 +55,7 @@ class LoseFragment : Fragment() {
                 container,
                 false
         )
-        binding.finalScore.text = viewModel.myPlayer.score.toString()
+        binding.finalScore.text = viewModel.scoreFinal.toString()
         binding.neumorphButton.setOnClickListener { nextScreen() }
         return binding.root
 

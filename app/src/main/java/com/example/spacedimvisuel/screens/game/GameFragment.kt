@@ -104,9 +104,9 @@ class GameFragment : Fragment() {
             if (newState.type == SocketListener.EventType.GAME_OVER) {
                 var gameover_action = newState as SocketListener.Event.GameOver
                 if (gameover_action.win) {
-                    nextScreenWin()
+                    nextScreenWin(gameover_action.score)
                 } else {
-                    nextScreenLose()
+                    nextScreenLose(gameover_action.score)
                 }
             }
 
@@ -168,20 +168,20 @@ class GameFragment : Fragment() {
     }
 
 
-    private fun nextScreenLose() {
+    private fun nextScreenLose(scoreFinal: Int) {
         viewModel.gameState.removeObserver(gameStateObserver)
 //        viewModel.gameNextAction.removeObserver(nextActionObserver)
 //        viewModel.gameUiElement.removeObserver(uiComponentObserver)
-        val action = GameFragmentDirections.actionGameDestinationToLoseDestination(viewModel.myPlayer)
+        val action = GameFragmentDirections.actionGameDestinationToLoseDestination(viewModel.myPlayer, scoreFinal)
         viewModel.currentWebSocket.close(1000,"Game ends");
         NavHostFragment.findNavController(this).navigate(action)
     }
 
-    private fun nextScreenWin() {
+    private fun nextScreenWin(scoreFinal: Int) {
         viewModel.gameState.removeObserver(gameStateObserver)
 //        viewModel.gameNextAction.removeObserver(nextActionObserver)
 //        viewModel.gameUiElement.removeObserver(uiComponentObserver)
-        val action = GameFragmentDirections.actionGameDestinationToWinDestination(viewModel.myPlayer)
+        val action = GameFragmentDirections.actionGameDestinationToWinDestination(viewModel.myPlayer, scoreFinal)
         viewModel.currentWebSocket.close(1000,"Game ends");
         NavHostFragment.findNavController(this).navigate(action)
     }
