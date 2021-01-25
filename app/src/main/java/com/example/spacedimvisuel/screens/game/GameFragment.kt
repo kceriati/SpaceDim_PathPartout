@@ -237,7 +237,6 @@ class GameFragment : Fragment() {
         button.setOnClickListener {
             sendelementclick(element)
             playSound(element.content.toString())
-            Log.i(TAG, element.content.toString())
 
         }
         val content = element.content.toLowerCase()
@@ -278,7 +277,6 @@ class GameFragment : Fragment() {
         switch.findViewById<Switch>(R.id.switch1).setOnClickListener {
             sendelementclick(element)
             playSound(element.content.toString())
-            Log.i(TAG, element.content.toString())
         }
         row.addView(switch)
     }
@@ -310,18 +308,18 @@ class GameFragment : Fragment() {
     private fun playSound(desc: String){
         var pSound:MediaPlayer? = null
         when{
-            desc.contains("café") -> pSound = MediaPlayer.create(context, R.raw.coffee)
-            desc.contains("gaz") -> pSound = MediaPlayer.create(context, R.raw.gaz)
-            desc.contains("bombe") -> pSound = MediaPlayer.create(context, R.raw.bomb)
-            desc.contains("plaindre") -> pSound = MediaPlayer.create(context, R.raw.plaindre)
-            desc.contains("chez") -> pSound = MediaPlayer.create(context, R.raw.porte)
-            desc.contains("laser") -> pSound = MediaPlayer.create(context, R.raw.laser)
-            desc.contains("turbine") -> pSound = MediaPlayer.create(context, R.raw.turbine)
-            desc.contains("hyper") -> pSound = MediaPlayer.create(context, R.raw.hyperprop)
-            desc.contains("téléporteur") -> pSound = MediaPlayer.create(context, R.raw.teleporteur)
-            desc.contains("gravité") -> pSound = MediaPlayer.create(context, R.raw.gravity)
-            desc.contains("bouclier") -> pSound = MediaPlayer.create(context, R.raw.bouclier)
-            desc.contains("covid") -> pSound = MediaPlayer.create(context, R.raw.covid)
+            desc.toLowerCase().contains("café") -> pSound = MediaPlayer.create(context, R.raw.coffee)
+            desc.toLowerCase().contains("gaz") -> pSound = MediaPlayer.create(context, R.raw.gaz)
+            desc.toLowerCase().contains("bombe") -> pSound = MediaPlayer.create(context, R.raw.bombe)
+            desc.toLowerCase().contains("plaindre") -> pSound = MediaPlayer.create(context, R.raw.plaindre)
+            desc.toLowerCase().contains("chez") -> pSound = MediaPlayer.create(context, R.raw.porte)
+            desc.toLowerCase().contains("laser") -> pSound = MediaPlayer.create(context, R.raw.laser)
+            desc.toLowerCase().contains("turbine") -> pSound = MediaPlayer.create(context, R.raw.turbine)
+            desc.toLowerCase().contains("hyper") -> pSound = MediaPlayer.create(context, R.raw.hyperprop)
+            desc.toLowerCase().contains("téléporteur") -> pSound = MediaPlayer.create(context, R.raw.teleporteur)
+            desc.toLowerCase().contains("gravité") -> pSound = MediaPlayer.create(context, R.raw.gravity)
+            desc.toLowerCase().contains("bouclier") -> pSound = MediaPlayer.create(context, R.raw.bouclier)
+            desc.toLowerCase().contains("covid") -> pSound = MediaPlayer.create(context, R.raw.covid)
         }
         pSound?.start()
     }
