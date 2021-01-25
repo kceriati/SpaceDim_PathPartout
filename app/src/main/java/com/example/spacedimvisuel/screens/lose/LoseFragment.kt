@@ -17,18 +17,16 @@
 package com.example.spacedimvisuel.screens.lose
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
 import com.example.spacedimvisuel.R
 import com.example.spacedimvisuel.databinding.LoseFragmentBinding
-import com.example.spacedimvisuel.screens.game.GameFragmentDirections
+import com.example.spacedimvisuel.screens.login.LoginFragmentDirections
 
 
 /**
@@ -38,13 +36,18 @@ class LoseFragment : Fragment() {
 
 
     private lateinit var binding: LoseFragmentBinding
-
-
     private lateinit var viewModel: LoseViewModel
+    private lateinit var viewModelFactory: LoseViewModelFactory
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
+
+        viewModelFactory = LoseViewModelFactory(
+                LoseFragmentArgs.fromBundle(requireArguments()).user,
+                LoseFragmentArgs.fromBundle(requireArguments()).scoreFinal
+        )
+        viewModel = ViewModelProvider(this, viewModelFactory).get(LoseViewModel::class.java)
 
         // Inflate view and obtain an instance of the binding class
         binding = DataBindingUtil.inflate(
@@ -53,12 +56,18 @@ class LoseFragment : Fragment() {
                 container,
                 false
         )
+        binding.finalScore.text = viewModel.scoreFinal.toString()
         binding.neumorphButton.setOnClickListener { nextScreen() }
+        binding.butonhighscore.setOnClickListener{
+           val action = LoseFragmentDirections.actionLoseDestinationToScoreDestination(viewModel.myPlayer)
+            NavHostFragment.findNavController(this).navigate(action)
+        }
         return binding.root
 
     }
     private fun nextScreen() {
-        val action = LoseFragmentDirections.actionLoseDestinationToLoginDestination()
+       /* val action = LoseFragmentDirections.actionLoseDestinationToLoginDestination()*/
+        val action = LoseFragmentDirections.actionLoseDestinationToLobbyDestination(viewModel.myPlayer)
         NavHostFragment.findNavController(this).navigate(action)
     }
 }

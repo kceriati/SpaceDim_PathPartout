@@ -16,6 +16,7 @@
 
 package com.example.spacedimvisuel.screens.game
 
+//import com.example.spacedimvisuel.screens.game.UIType.*
 import android.animation.ValueAnimator
 import android.content.Context
 import android.graphics.Color
@@ -23,8 +24,8 @@ import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
+import android.media.MediaPlayer
 import android.os.Bundle
-import android.util.JsonWriter
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -33,23 +34,15 @@ import android.widget.ImageView
 import android.widget.Switch
 import android.widget.TableRow
 import android.widget.TextView
-import androidx.core.graphics.drawable.toDrawable
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.observe
 import androidx.navigation.fragment.NavHostFragment
 import com.example.spacedimvisuel.R
 import com.example.spacedimvisuel.api.PolymorphicAdapter
 import com.example.spacedimvisuel.api.SocketListener
-import com.example.spacedimvisuel.api.User
 import com.example.spacedimvisuel.databinding.GameFragmentBinding
-//import com.example.spacedimvisuel.screens.game.UIType.*
-import com.squareup.moshi.JsonAdapter
-import com.squareup.moshi.Moshi
-import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
-import soup.neumorphism.NeumorphButton
 import soup.neumorphism.NeumorphCardView
 import soup.neumorphism.NeumorphImageButton
 import java.util.*
@@ -112,9 +105,9 @@ class GameFragment : Fragment() {
             if (newState.type == SocketListener.EventType.GAME_OVER) {
                 var gameover_action = newState as SocketListener.Event.GameOver
                 if (gameover_action.win) {
-                    nextScreenWin()
+                    nextScreenWin(gameover_action.score)
                 } else {
-                    nextScreenLose()
+                    nextScreenLose(gameover_action.score)
                 }
             }
 
@@ -176,19 +169,21 @@ class GameFragment : Fragment() {
     }
 
 
-    private fun nextScreenLose() {
+    private fun nextScreenLose(scoreFinal: Int) {
         viewModel.gameState.removeObserver(gameStateObserver)
 //        viewModel.gameNextAction.removeObserver(nextActionObserver)
 //        viewModel.gameUiElement.removeObserver(uiComponentObserver)
-        val action = GameFragmentDirections.actionGameDestinationToLoseDestination()
+        val action = GameFragmentDirections.actionGameDestinationToLoseDestination(viewModel.myPlayer, scoreFinal)
+        viewModel.currentWebSocket.close(1000,"Game ends");
         NavHostFragment.findNavController(this).navigate(action)
     }
 
-    private fun nextScreenWin() {
+    private fun nextScreenWin(scoreFinal: Int) {
         viewModel.gameState.removeObserver(gameStateObserver)
 //        viewModel.gameNextAction.removeObserver(nextActionObserver)
 //        viewModel.gameUiElement.removeObserver(uiComponentObserver)
-        val action = GameFragmentDirections.actionGameDestinationToWinDestination()
+        val action = GameFragmentDirections.actionGameDestinationToWinDestination(viewModel.myPlayer, scoreFinal)
+        viewModel.currentWebSocket.close(1000,"Game ends");
         NavHostFragment.findNavController(this).navigate(action)
     }
 
@@ -239,7 +234,11 @@ class GameFragment : Fragment() {
             row,
             false
         ) as NeumorphImageButton
-        button.setOnClickListener { sendelementclick(element) }
+        button.setOnClickListener {
+            sendelementclick(element)
+            playSound(element.content.toString())
+
+        }
         val content = element.content.toLowerCase()
         when{
             content.contains("café") -> button.setImageResource(R.drawable.cafe)
@@ -248,6 +247,8 @@ class GameFragment : Fragment() {
             content.contains("plaindre") -> button.setImageResource(R.drawable.stop_complaining_crying)
             content.contains("chez") -> button.setImageResource(R.drawable.stay_home)
             content.contains("vie") -> button.setImageResource(R.drawable.quarante_deux)
+            content.contains("laser") -> button.setImageResource(R.drawable.laser)
+            content.contains("turbine") -> button.setImageResource(R.drawable.turbine)
             else -> button.setImageResource(R.drawable.clouds)
         }
         row.addView(button)
@@ -273,7 +274,10 @@ class GameFragment : Fragment() {
             content.toLowerCase().contains("covid") -> switch.findViewById<ImageView>(R.id.image).setImageResource(R.drawable.vaccin)
         }
         switch.findViewById<TextView>(R.id.temptext).text = content
-        switch.findViewById<Switch>(R.id.switch1).setOnClickListener { sendelementclick(element) }
+        switch.findViewById<Switch>(R.id.switch1).setOnClickListener {
+            sendelementclick(element)
+            playSound(element.content.toString())
+        }
         row.addView(switch)
     }
 
@@ -296,10 +300,29 @@ class GameFragment : Fragment() {
         )
     }
 
+
     private fun sendaction(action: SocketListener.Action) {
-        binding.edittext.text = action.sentence
+        binding.actionDesc.text = action.sentence
     }
 
+    private fun playSound(desc: String){
+        var pSound:MediaPlayer? = null
+        when{
+            desc.toLowerCase().contains("café") -> pSound = MediaPlayer.create(context, R.raw.coffee)
+            desc.toLowerCase().contains("gaz") -> pSound = MediaPlayer.create(context, R.raw.gaz)
+            desc.toLowerCase().contains("bombe") -> pSound = MediaPlayer.create(context, R.raw.bombe)
+            desc.toLowerCase().contains("plaindre") -> pSound = MediaPlayer.create(context, R.raw.plaindre)
+            desc.toLowerCase().contains("chez") -> pSound = MediaPlayer.create(context, R.raw.porte)
+            desc.toLowerCase().contains("laser") -> pSound = MediaPlayer.create(context, R.raw.laser)
+            desc.toLowerCase().contains("turbine") -> pSound = MediaPlayer.create(context, R.raw.turbine)
+            desc.toLowerCase().contains("hyper") -> pSound = MediaPlayer.create(context, R.raw.hyperprop)
+            desc.toLowerCase().contains("téléporteur") -> pSound = MediaPlayer.create(context, R.raw.teleporteur)
+            desc.toLowerCase().contains("gravité") -> pSound = MediaPlayer.create(context, R.raw.gravity)
+            desc.toLowerCase().contains("bouclier") -> pSound = MediaPlayer.create(context, R.raw.bouclier)
+            desc.toLowerCase().contains("covid") -> pSound = MediaPlayer.create(context, R.raw.covid)
+        }
+        pSound?.start()
+    }
 
     fun my_gradient(value: Int): Int {
         """

@@ -16,7 +16,6 @@
 
 package com.example.spacedimvisuel.screens.lobby
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -25,27 +24,20 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContextCompat
-import androidx.core.content.ContextCompat.getColor
-import androidx.core.content.res.ResourcesCompat.getColor
 import androidx.core.graphics.drawable.toDrawable
-import androidx.core.graphics.toColor
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.navArgs
 import com.example.spacedimvisuel.R
 import com.example.spacedimvisuel.api.MyWebsocketTraveler
 import com.example.spacedimvisuel.api.SocketListener
 import com.example.spacedimvisuel.api.State
 import com.example.spacedimvisuel.api.User
 import com.example.spacedimvisuel.databinding.LobbyFragmentBinding
-import com.google.android.material.color.MaterialColors.getColor
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.user_container.view.*
-import com.example.spacedimvisuel.R.color.light_orange as light_orange1
 
 /**
  * Fragment where the game is played
@@ -58,7 +50,6 @@ class LobbyFragment : Fragment() {
     private val TAG = "LobbyFragment"
 
     private lateinit var binding: LobbyFragmentBinding
-    private val args by navArgs<LobbyFragmentArgs>()
     private lateinit var lobbyUserObserver : Observer<List<User>>
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -139,7 +130,8 @@ class LobbyFragment : Fragment() {
             false
         ) as ConstraintLayout
         //playertile.setOnClickListener { toggle(id) }
-        val name= playertile.findViewById<TextView>(R.id.textname)
+        val name = playertile.findViewById<TextView>(R.id.username)
+        val score = playertile.findViewById<TextView>(R.id.score)
         Picasso.get().load(user.avatar).into(playertile.userpic)
         if (user.state == State.WAITING) {
             playertile.statuscontainer.setBackgroundResource(R.color.light_orange.toInt())
@@ -149,7 +141,9 @@ class LobbyFragment : Fragment() {
             playertile.statuscontainer.setBackgroundResource(R.color.design_default_color_secondary.toInt())
             playertile.status.text = "READY"
         }
-            name.text = user.name
+
+        name.text = user.name
+        score.text = user.score.toString()
         return playertile
     }
 
@@ -164,7 +158,7 @@ class LobbyFragment : Fragment() {
         val builder = AlertDialog.Builder(this.requireContext())
         val inflater = layoutInflater
         builder.setTitle("Please enter room name")
-        val dialogLayout = inflater.inflate(R.layout.alert_dialog_edittext, null)
+        val dialogLayout = inflater.inflate(R.layout.alert_dialog_room, null)
         val editText = dialogLayout.findViewById<EditText>(R.id.roomNameEditText)
         builder.setView(dialogLayout)
         var roomName = ""

@@ -48,6 +48,7 @@ import com.example.spacedimvisuel.databinding.ScoreFragmentBinding
 import com.example.spacedimvisuel.screens.game.GameFragmentArgs
 import com.example.spacedimvisuel.screens.game.GameViewModelFactory
 import com.example.spacedimvisuel.screens.lobby.LobbyFragmentDirections
+import com.example.spacedimvisuel.screens.win.WinFragmentDirections
 import com.google.android.material.color.MaterialColors.getColor
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.user_container.view.*
@@ -93,7 +94,10 @@ class ScoreFragment : Fragment() {
         }
 
         viewModel.userScoreList.observe(viewLifecycleOwner, gameScoreObserver)
-
+        binding.backtolobby.setOnClickListener {
+            val action = ScoreFragmentDirections.actionScoreDestinationToLobbyDestination (viewModel.currentPlayer)
+            NavHostFragment.findNavController(this).navigate(action)
+        }
         return binding.root
     }
 

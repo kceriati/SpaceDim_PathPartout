@@ -78,13 +78,13 @@
 
 
             <TextView
-                android:id="@+id/edittext"
+                android:id="@+id/actionDesc"
                 android:layout_width="match_parent"
                 android:layout_height="37dp"
                 android:layout_marginStart="12dp"
                 android:layout_marginEnd="12dp"
                 android:gravity="center"
-                android:hint="What to do?"
+                android:hint="@string/whatToDo"
                 android:singleLine="true"
                 android:textColor="@color/design_default_color_secondary_variant" />
 

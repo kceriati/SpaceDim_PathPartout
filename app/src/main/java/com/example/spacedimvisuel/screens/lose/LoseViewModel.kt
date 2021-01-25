@@ -16,12 +16,13 @@
 
 package com.example.spacedimvisuel.screens.lose
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
+import com.example.spacedimvisuel.api.User
 
 /**
  * ViewModel containing all the logic needed to run the game
  */
-class LoseViewModel : ViewModel() {
-
+class LoseViewModel(player: User, scoreFinal: Int) : ViewModel() {
+    var myPlayer = player
+    var scoreFinal = scoreFinal
 }

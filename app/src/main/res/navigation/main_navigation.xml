@@ -38,9 +38,6 @@
         <action
             android:id="@+id/action_login_destination_to_lobby_destination"
             app:destination="@id/lobby_destination" />
-        <action
-            android:id="@+id/action_login_destination_to_score_destination"
-            app:destination="@id/score_destination" />
     </fragment>
 
     <fragment
@@ -49,17 +46,35 @@
         android:label="lose_fragment"
         tools:layout="@layout/lose_fragment">
         <action
-            android:id="@+id/action_lose_destination_to_login_destination"
-            app:destination="@id/login_destination" />
+            android:id="@+id/action_lose_destination_to_lobby_destination"
+            app:destination="@id/lobby_destination" />
+        <argument
+            android:name="user"
+            app:argType="com.example.spacedimvisuel.api.User" />
+        <argument
+            android:name="scoreFinal"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_lose_destination_to_score_destination"
+            app:destination="@id/score_destination" />
     </fragment>
     <fragment
         android:id="@+id/win_destination"
         android:name="com.example.spacedimvisuel.screens.win.WinFragment"
         android:label="win_fragment"
         tools:layout="@layout/win_fragment">
+        <argument
+            android:name="user"
+            app:argType="com.example.spacedimvisuel.api.User" />
         <action
-            android:id="@+id/action_win_destination_to_login_destination"
-            app:destination="@id/login_destination" />
+            android:id="@+id/action_win_destination_to_lobby_destination"
+            app:destination="@id/lobby_destination" />
+        <argument
+            android:name="scoreFinal"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_win_destination_to_score_destination"
+            app:destination="@id/score_destination" />
     </fragment>
 
     <fragment
@@ -88,5 +103,8 @@
         <argument
             android:name="user"
             app:argType="com.example.spacedimvisuel.api.User" />
+        <action
+            android:id="@+id/action_score_destination_to_lobby_destination"
+            app:destination="@id/lobby_destination" />
     </fragment>
 </navigation>
