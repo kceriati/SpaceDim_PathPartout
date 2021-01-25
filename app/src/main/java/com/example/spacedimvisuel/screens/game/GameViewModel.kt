@@ -36,5 +36,7 @@ class GameViewModel(
     val gameUi: MutableLiveData<List<SocketListener.UIElement>> = currentListener.gameUi
    // val liveuielement = LiveData<SocketListener.Event>(gameState.value)
 
+    var myPlayer = player
+
 
 }

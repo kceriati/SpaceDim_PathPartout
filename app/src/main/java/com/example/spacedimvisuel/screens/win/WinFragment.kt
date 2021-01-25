@@ -28,7 +28,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
 import com.example.spacedimvisuel.R
 import com.example.spacedimvisuel.databinding.WinFragmentBinding
+import com.example.spacedimvisuel.screens.game.GameFragmentArgs
+import com.example.spacedimvisuel.screens.game.GameViewModel
+import com.example.spacedimvisuel.screens.game.GameViewModelFactory
 import com.example.spacedimvisuel.screens.lose.LoseFragmentDirections
+import com.example.spacedimvisuel.screens.win.WinFragmentArgs.fromBundle
 
 
 /**
@@ -38,9 +42,8 @@ class WinFragment : Fragment() {
 
 
     private lateinit var binding: WinFragmentBinding
-
-
     private lateinit var viewModel: WinViewModel
+    private lateinit var viewModelFactory: WinViewModelFactory
 
 
     override fun onCreateView(
@@ -48,6 +51,11 @@ class WinFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
+        viewModelFactory = WinViewModelFactory(
+            WinFragmentArgs.fromBundle(requireArguments()).user
+        )
+        viewModel = ViewModelProvider(this, viewModelFactory).get(WinViewModel::class.java)
+        
         // Inflate view and obtain an instance of the binding class
         binding = DataBindingUtil.inflate(
             inflater,
@@ -61,7 +69,11 @@ class WinFragment : Fragment() {
     }
 
     private fun nextScreen() {
-        val action = WinFragmentDirections.actionWinDestinationToLoginDestination()
+        /*val action = WinFragmentDirections.actionWinDestinationToLoginDestination()*/
+        val action = WinFragmentDirections.actionWinDestinationToLobbyDestination(viewModel.myPlayer)
         NavHostFragment.findNavController(this).navigate(action)
     }
 }
+
+/*
+viewModel.myPlayer*/
