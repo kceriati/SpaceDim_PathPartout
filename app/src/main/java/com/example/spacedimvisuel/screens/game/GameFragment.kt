@@ -16,6 +16,7 @@
 
 package com.example.spacedimvisuel.screens.game
 
+//import com.example.spacedimvisuel.screens.game.UIType.*
 import android.animation.ValueAnimator
 import android.content.Context
 import android.graphics.Color
@@ -25,30 +26,23 @@ import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.media.MediaPlayer
 import android.os.Bundle
-import android.util.JsonWriter
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
-import androidx.core.graphics.drawable.toDrawable
+import android.widget.ImageView
+import android.widget.Switch
+import android.widget.TableRow
+import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.observe
 import androidx.navigation.fragment.NavHostFragment
 import com.example.spacedimvisuel.R
 import com.example.spacedimvisuel.api.PolymorphicAdapter
 import com.example.spacedimvisuel.api.SocketListener
-import com.example.spacedimvisuel.api.User
 import com.example.spacedimvisuel.databinding.GameFragmentBinding
-//import com.example.spacedimvisuel.screens.game.UIType.*
-import com.squareup.moshi.JsonAdapter
-import com.squareup.moshi.Moshi
-import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
-import org.w3c.dom.Text
-import soup.neumorphism.NeumorphButton
 import soup.neumorphism.NeumorphCardView
 import soup.neumorphism.NeumorphImageButton
 import java.util.*

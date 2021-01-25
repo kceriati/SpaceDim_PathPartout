@@ -18,15 +18,11 @@ package com.example.spacedimvisuel.screens.lobby
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-
-import com.example.spacedimvisuel.api.User
-
 import com.example.spacedimvisuel.api.SocketListener
+import com.example.spacedimvisuel.api.User
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.WebSocket
-import okhttp3.WebSocketListener
-import okhttp3.internal.ws.RealWebSocket
 
 
 /**

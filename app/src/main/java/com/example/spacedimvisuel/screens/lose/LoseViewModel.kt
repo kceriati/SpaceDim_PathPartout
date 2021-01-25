@@ -16,7 +16,6 @@
 
 package com.example.spacedimvisuel.screens.lose
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.example.spacedimvisuel.api.User
 
