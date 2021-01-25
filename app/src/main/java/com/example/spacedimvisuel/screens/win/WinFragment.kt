@@ -45,7 +45,8 @@ class WinFragment : Fragment() {
     ): View? {
 
         viewModelFactory = WinViewModelFactory(
-            WinFragmentArgs.fromBundle(requireArguments()).user
+            WinFragmentArgs.fromBundle(requireArguments()).user,
+            WinFragmentArgs.fromBundle(requireArguments()).scoreFinal
         )
         viewModel = ViewModelProvider(this, viewModelFactory).get(WinViewModel::class.java)
         
@@ -56,7 +57,7 @@ class WinFragment : Fragment() {
             container,
             false
         )
-        binding.finalScore.text = viewModel.myPlayer.score.toString()
+        binding.finalScore.text = viewModel.scoreFinal.toString()
         binding.neumorphButton.setOnClickListener { nextScreen() }
         return binding.root
 

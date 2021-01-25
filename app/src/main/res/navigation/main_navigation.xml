@@ -54,6 +54,9 @@
         <argument
             android:name="user"
             app:argType="com.example.spacedimvisuel.api.User" />
+        <argument
+            android:name="scoreFinal"
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/win_destination"
@@ -66,6 +69,9 @@
         <action
             android:id="@+id/action_win_destination_to_lobby_destination"
             app:destination="@id/lobby_destination" />
+        <argument
+            android:name="scoreFinal"
+            app:argType="integer" />
     </fragment>
 
     <fragment

@@ -13,5 +13,5 @@
     <string name="statusReady">Ready</string>
     <string name="waiting">Waiting</string>
     <string name="enter_room_name">Enter room name</string>
-    <string name="playerScore">Player score :</string>
+    <string name="gameScore">Final score :</string>
 </resources>
