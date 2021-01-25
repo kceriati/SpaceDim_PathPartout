@@ -243,7 +243,7 @@ class GameFragment : Fragment() {
         when{
             content.contains("café") -> button.setImageResource(R.drawable.cafe)
             content.contains("gaz") -> button.setImageResource(R.drawable.too_much_gaz)
-            content.contains("bombe") -> button.setImageResource(R.drawable.rocket_icon)
+            content.contains("bombe") -> button.setImageResource(R.drawable.rocket_bug)
             content.contains("plaindre") -> button.setImageResource(R.drawable.stop_complaining_crying)
             content.contains("chez") -> button.setImageResource(R.drawable.stay_home)
             content.contains("vie") -> button.setImageResource(R.drawable.quarante_deux)
