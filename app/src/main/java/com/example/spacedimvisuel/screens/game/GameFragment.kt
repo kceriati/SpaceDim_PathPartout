@@ -23,6 +23,7 @@ import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.util.JsonWriter
 import android.util.Log
@@ -239,7 +240,12 @@ class GameFragment : Fragment() {
             row,
             false
         ) as NeumorphImageButton
-        button.setOnClickListener { sendelementclick(element) }
+        button.setOnClickListener {
+            sendelementclick(element)
+            playSound(element.content.toString())
+            Log.i(TAG, element.content.toString())
+
+        }
         val content = element.content.toLowerCase()
         when{
             content.contains("café") -> button.setImageResource(R.drawable.cafe)
@@ -275,7 +281,11 @@ class GameFragment : Fragment() {
             content.toLowerCase().contains("covid") -> switch.findViewById<ImageView>(R.id.image).setImageResource(R.drawable.vaccin)
         }
         switch.findViewById<TextView>(R.id.temptext).text = content
-        switch.findViewById<Switch>(R.id.switch1).setOnClickListener { sendelementclick(element) }
+        switch.findViewById<Switch>(R.id.switch1).setOnClickListener {
+            sendelementclick(element)
+            playSound(element.content.toString())
+            Log.i(TAG, element.content.toString())
+        }
         row.addView(switch)
     }
 
@@ -303,6 +313,24 @@ class GameFragment : Fragment() {
         binding.actionDesc.text = action.sentence
     }
 
+    private fun playSound(desc: String){
+        var pSound:MediaPlayer? = null
+        when{
+            desc.contains("café") -> pSound = MediaPlayer.create(context, R.raw.coffee)
+            desc.contains("gaz") -> pSound = MediaPlayer.create(context, R.raw.gaz)
+            desc.contains("bombe") -> pSound = MediaPlayer.create(context, R.raw.bomb)
+            desc.contains("plaindre") -> pSound = MediaPlayer.create(context, R.raw.plaindre)
+            desc.contains("chez") -> pSound = MediaPlayer.create(context, R.raw.porte)
+            desc.contains("laser") -> pSound = MediaPlayer.create(context, R.raw.laser)
+            desc.contains("turbine") -> pSound = MediaPlayer.create(context, R.raw.turbine)
+            desc.contains("hyper") -> pSound = MediaPlayer.create(context, R.raw.hyperprop)
+            desc.contains("téléporteur") -> pSound = MediaPlayer.create(context, R.raw.teleporteur)
+            desc.contains("gravité") -> pSound = MediaPlayer.create(context, R.raw.gravity)
+            desc.contains("bouclier") -> pSound = MediaPlayer.create(context, R.raw.bouclier)
+            desc.contains("covid") -> pSound = MediaPlayer.create(context, R.raw.covid)
+        }
+        pSound?.start()
+    }
 
     fun my_gradient(value: Int): Int {
         """
