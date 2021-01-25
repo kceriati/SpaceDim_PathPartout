@@ -17,21 +17,15 @@
 package com.example.spacedimvisuel.screens.lose
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
 import com.example.spacedimvisuel.R
 import com.example.spacedimvisuel.databinding.LoseFragmentBinding
-import com.example.spacedimvisuel.screens.game.GameFragmentDirections
-import com.example.spacedimvisuel.screens.win.WinFragmentArgs
-import com.example.spacedimvisuel.screens.win.WinViewModel
-import com.example.spacedimvisuel.screens.win.WinViewModelFactory
 
 
 /**
@@ -60,6 +54,7 @@ class LoseFragment : Fragment() {
                 container,
                 false
         )
+        binding.finalScore.text = viewModel.myPlayer.score.toString()
         binding.neumorphButton.setOnClickListener { nextScreen() }
         return binding.root
 

@@ -16,7 +16,6 @@
 
 package com.example.spacedimvisuel.screens.login
 
-import android.hardware.SensorManager
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

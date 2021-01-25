@@ -30,7 +30,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.navArgs
 import com.example.spacedimvisuel.R
 import com.example.spacedimvisuel.api.MyWebsocketTraveler
 import com.example.spacedimvisuel.api.SocketListener
@@ -51,7 +50,6 @@ class LobbyFragment : Fragment() {
     private val TAG = "LobbyFragment"
 
     private lateinit var binding: LobbyFragmentBinding
-    private val args by navArgs<LobbyFragmentArgs>()
     private lateinit var lobbyUserObserver : Observer<List<User>>
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,

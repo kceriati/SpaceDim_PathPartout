@@ -16,7 +16,6 @@
 
 package com.example.spacedimvisuel.screens.game
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.spacedimvisuel.api.MyWebsocketTraveler

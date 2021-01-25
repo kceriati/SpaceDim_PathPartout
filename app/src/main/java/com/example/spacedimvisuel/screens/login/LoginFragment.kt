@@ -16,21 +16,13 @@
 
 package com.example.spacedimvisuel.screens.login
 
-import android.content.Context
-import android.content.Context.SENSOR_SERVICE
-import android.hardware.Sensor
-import android.hardware.SensorEvent
-import android.hardware.SensorEventListener
-import android.hardware.SensorManager
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.annotation.RequiresApi
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -38,7 +30,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
 import com.example.spacedimvisuel.R
 import com.example.spacedimvisuel.databinding.LoginFragmentBinding
-import java.util.*
 
 
 /**
