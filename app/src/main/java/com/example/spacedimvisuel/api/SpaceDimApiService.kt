@@ -28,6 +28,10 @@ interface SpaceDimApiService {
     suspend fun findUser(@Path("name") userName: String?):
             User
 
+    @GET("users/?sort=top")
+    suspend fun listAllUser():
+            List<User>
+
     @Headers("Content-Type:application/json")
     @POST("user/register")
     suspend fun createUser(@Body request: UserPost):

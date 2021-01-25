@@ -51,8 +51,6 @@ class LoginFragment : Fragment() {
     private val TAG = "LoginFragment"
     private lateinit var viewModel: LoginViewModel
 
-
-
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -72,7 +70,9 @@ class LoginFragment : Fragment() {
 
         viewModel.userFromAPI.observe(viewLifecycleOwner, Observer {
             Log.i(TAG, viewModel.userFromAPI.value.toString())
-            val action = LoginFragmentDirections.actionLoginDestinationToLobbyDestination(viewModel.userFromAPI.value!!)
+            // TODO remettre l'action avant de commit
+//            val action = LoginFragmentDirections.actionLoginDestinationToLobbyDestination(viewModel.userFromAPI.value!!)
+            val action = LoginFragmentDirections.actionLoginDestinationToScoreDestination(viewModel.userFromAPI.value!!)
             //action.user = viewModel.userFromAPI.value!!
             NavHostFragment.findNavController(this).navigate(action)
         })

@@ -158,7 +158,6 @@ class LobbyFragment : Fragment() {
        for (user in users){
            binding.playerList.addView(createPlayerContainer(user))
        }
-
     }
 
     private fun drawRoomName(){

@@ -38,6 +38,9 @@
         <action
             android:id="@+id/action_login_destination_to_lobby_destination"
             app:destination="@id/lobby_destination" />
+        <action
+            android:id="@+id/action_login_destination_to_score_destination"
+            app:destination="@id/score_destination" />
     </fragment>
 
     <fragment
@@ -78,5 +81,12 @@
             app:argType="com.example.spacedimvisuel.api.MyWebsocketTraveler" />
 
     </fragment>
-
+    <fragment
+        android:id="@+id/score_destination"
+        android:name="com.example.spacedimvisuel.screens.score.ScoreFragment"
+        android:label="ScoreFragment">
+        <argument
+            android:name="user"
+            app:argType="com.example.spacedimvisuel.api.User" />
+    </fragment>
 </navigation>
