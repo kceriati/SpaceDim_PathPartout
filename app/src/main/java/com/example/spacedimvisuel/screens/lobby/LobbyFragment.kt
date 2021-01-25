@@ -158,7 +158,7 @@ class LobbyFragment : Fragment() {
         val builder = AlertDialog.Builder(this.requireContext())
         val inflater = layoutInflater
         builder.setTitle("Please enter room name")
-        val dialogLayout = inflater.inflate(R.layout.alert_dialog_edittext, null)
+        val dialogLayout = inflater.inflate(R.layout.alert_dialog_room, null)
         val editText = dialogLayout.findViewById<EditText>(R.id.roomNameEditText)
         builder.setView(dialogLayout)
         var roomName = ""

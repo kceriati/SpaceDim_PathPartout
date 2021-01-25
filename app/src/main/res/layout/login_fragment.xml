@@ -62,7 +62,7 @@
                     android:layout_width="221dp"
                     android:layout_height="49dp"
                     android:background="@null"
-                    android:hint="Ton pseudo d'astronaute"
+                    android:hint="@string/enterPseudo"
                     android:inputType="text"
                     android:paddingLeft="10dp"
                     android:singleLine="true"
