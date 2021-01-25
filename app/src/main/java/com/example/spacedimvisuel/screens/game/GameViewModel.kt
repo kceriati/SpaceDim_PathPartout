@@ -22,6 +22,8 @@ import com.example.spacedimvisuel.api.MyWebsocketTraveler
 import com.example.spacedimvisuel.api.SocketListener
 import com.example.spacedimvisuel.api.User
 
+
+
 /**
  * ViewModel containing all the logic needed to run the game
  */
@@ -29,13 +31,11 @@ class GameViewModel(
     player: User,
     webSocketTraveler: MyWebsocketTraveler) : ViewModel() {
 
-    var currentWebSocket = webSocketTraveler.getWebsocket()
-    var currentListener = webSocketTraveler.getlistener()
-    val gameState: MutableLiveData<SocketListener.Event> = currentListener.gameState
-    val gameUi: MutableLiveData<List<SocketListener.UIElement>> = currentListener.gameUi
-   // val liveuielement = LiveData<SocketListener.Event>(gameState.value)
-
-    var myPlayer = player
-
-
+        var currentWebSocket = webSocketTraveler.getWebsocket()
+        var myUser = player
+        var currentListener = webSocketTraveler.getlistener()
+        val gameState: MutableLiveData<SocketListener.Event> = currentListener.gameState
+        val gameUi: MutableLiveData<List<SocketListener.UIElement>> = currentListener.gameUi
+       // val liveuielement = LiveData<SocketListener.Event>(gameState.value)
+        var myPlayer = player
 }

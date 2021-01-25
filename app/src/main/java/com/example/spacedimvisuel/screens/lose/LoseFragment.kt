@@ -26,6 +26,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
 import com.example.spacedimvisuel.R
 import com.example.spacedimvisuel.databinding.LoseFragmentBinding
+import com.example.spacedimvisuel.screens.login.LoginFragmentDirections
 
 
 /**
@@ -57,6 +58,10 @@ class LoseFragment : Fragment() {
         )
         binding.finalScore.text = viewModel.scoreFinal.toString()
         binding.neumorphButton.setOnClickListener { nextScreen() }
+        binding.butonhighscore.setOnClickListener{
+           val action = LoseFragmentDirections.actionLoseDestinationToScoreDestination(viewModel.myPlayer)
+            NavHostFragment.findNavController(this).navigate(action)
+        }
         return binding.root
 
     }

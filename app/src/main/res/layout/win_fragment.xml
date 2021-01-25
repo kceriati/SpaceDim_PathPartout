@@ -69,6 +69,7 @@
             android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.269"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.937"
@@ -76,6 +77,25 @@
             app:neumorph_shadowColorDark="#252b8f"
             app:neumorph_shadowColorLight="#4247a8"
             app:neumorph_shapeType="flat" />
+
+        <soup.neumorphism.NeumorphButton
+            android:id="@+id/butonhighscore"
+            style="@style/Widget.Neumorph.Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="HIGH \n SCORES"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.104"
+            app:layout_constraintStart_toEndOf="@+id/neumorphButton"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.937"
+            app:neumorph_backgroundColor="#343aa8"
+            app:neumorph_shadowColorDark="#252b8f"
+            app:neumorph_shadowColorLight="#4247a8"
+            app:neumorph_shapeType="flat"
+            tools:ignore="MissingConstraints" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

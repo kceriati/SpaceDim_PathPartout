@@ -38,9 +38,6 @@
         <action
             android:id="@+id/action_login_destination_to_lobby_destination"
             app:destination="@id/lobby_destination" />
-        <action
-            android:id="@+id/action_login_destination_to_score_destination"
-            app:destination="@id/score_destination" />
     </fragment>
 
     <fragment
@@ -57,6 +54,9 @@
         <argument
             android:name="scoreFinal"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_lose_destination_to_score_destination"
+            app:destination="@id/score_destination" />
     </fragment>
     <fragment
         android:id="@+id/win_destination"
@@ -72,6 +72,9 @@
         <argument
             android:name="scoreFinal"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_win_destination_to_score_destination"
+            app:destination="@id/score_destination" />
     </fragment>
 
     <fragment
@@ -100,5 +103,8 @@
         <argument
             android:name="user"
             app:argType="com.example.spacedimvisuel.api.User" />
+        <action
+            android:id="@+id/action_score_destination_to_lobby_destination"
+            app:destination="@id/lobby_destination" />
     </fragment>
 </navigation>

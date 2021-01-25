@@ -26,6 +26,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
 import com.example.spacedimvisuel.R
 import com.example.spacedimvisuel.databinding.WinFragmentBinding
+import com.example.spacedimvisuel.screens.login.LoginFragmentDirections
 
 
 /**
@@ -59,6 +60,10 @@ class WinFragment : Fragment() {
         )
         binding.finalScore.text = viewModel.scoreFinal.toString()
         binding.neumorphButton.setOnClickListener { nextScreen() }
+        binding.butonhighscore.setOnClickListener{
+            val action = WinFragmentDirections.actionWinDestinationToScoreDestination (viewModel.myPlayer)
+            NavHostFragment.findNavController(this).navigate(action)
+        }
         return binding.root
 
     }

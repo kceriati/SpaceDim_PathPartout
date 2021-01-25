@@ -54,6 +54,7 @@ class LoginFragment : Fragment() {
                 false
         )
 
+
         // Specify the current activity as the lifecycle owner.
         binding.lifecycleOwner = this
 
@@ -62,8 +63,8 @@ class LoginFragment : Fragment() {
         viewModel.userFromAPI.observe(viewLifecycleOwner, Observer {
             Log.i(TAG, viewModel.userFromAPI.value.toString())
             // TODO remettre l'action avant de commit
-//            val action = LoginFragmentDirections.actionLoginDestinationToLobbyDestination(viewModel.userFromAPI.value!!)
-            val action = LoginFragmentDirections.actionLoginDestinationToScoreDestination(viewModel.userFromAPI.value!!)
+            val action = LoginFragmentDirections.actionLoginDestinationToLobbyDestination(viewModel.userFromAPI.value!!)
+             //val action = LoginFragmentDirections.actionLoginDestinationToScoreDestination(viewModel.userFromAPI.value!!)
             //action.user = viewModel.userFromAPI.value!!
             NavHostFragment.findNavController(this).navigate(action)
         })
