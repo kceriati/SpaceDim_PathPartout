@@ -24,11 +24,9 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.WebSocket
 
-
 /**
  * ViewModel containing all the logic needed to run the game
  */
-
 class LobbyViewModel(player : User) : ViewModel() {
 
     val listener = SocketListener()
@@ -42,7 +40,6 @@ class LobbyViewModel(player : User) : ViewModel() {
         val request = Request.Builder().url("ws://spacedim.async-agency.com:8081/ws/join/" + roomName + "/" + user.id.toString()).build();
         //WBS
         webSocket = client.newWebSocket(request, listener)
-
     }
 
     fun sendready(){

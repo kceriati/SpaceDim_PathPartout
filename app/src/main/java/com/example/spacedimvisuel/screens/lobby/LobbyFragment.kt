@@ -55,8 +55,6 @@ class LobbyFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
-
-        //  not here
         // Inflate view and obtain an instance of the binding class
         binding = DataBindingUtil.inflate(
                 inflater,
@@ -75,8 +73,6 @@ class LobbyFragment : Fragment() {
         viewModel = ViewModelProvider(this, viewModelFactory).get(LobbyViewModel::class.java)
         //println("REPONSE REUSSIE : " + this.viewModel.mainActivityBridge.getLoginVMTraveler())
        /* println("REPONSE REUSSIE : " + this.viewModel.mainActivityBridge.getLoginVMTraveler())*/
-
-
 
 
 
@@ -156,7 +152,6 @@ class LobbyFragment : Fragment() {
        for (user in users){
            binding.playerList.addView(createPlayerContainer(user))
        }
-
     }
 
     private fun drawRoomName(){

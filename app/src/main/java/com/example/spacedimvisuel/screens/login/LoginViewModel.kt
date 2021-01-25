@@ -24,6 +24,8 @@ import androidx.lifecycle.viewModelScope
 import com.example.spacedimvisuel.api.*
 import com.squareup.moshi.Moshi
 import kotlinx.coroutines.launch
+import okhttp3.OkHttpClient
+import okhttp3.Request
 import okhttp3.WebSocket
 
 
@@ -97,6 +99,14 @@ class LoginViewModel : ViewModel() {
     }
 
 
+    fun joinRoom(roomName: String) {
+        //OKHTTP
+        val client = OkHttpClient()
+        val request =
+            Request.Builder().url("ws://spacedim.async-agency.com:8081/ws/join/" + roomName + "/1")
+                .build();
+
+    }
 
 }
 

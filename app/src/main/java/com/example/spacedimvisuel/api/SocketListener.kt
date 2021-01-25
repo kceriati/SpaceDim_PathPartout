@@ -12,7 +12,7 @@ import okhttp3.Response
 import okhttp3.WebSocket
 import okhttp3.WebSocketListener
 
-class SocketListener: WebSocketListener(){
+class   SocketListener: WebSocketListener(){
 
     //current fragment (lobby-> game-> win/lose )
     public val gameState = MutableLiveData<Event>()
