@@ -31,44 +31,29 @@ class ScoreViewModel(player : User) : ViewModel() {
             listAllUser()
         }
 
-    // The external immutable LiveData for the response String
+    // The external immutable LiveData for the response List<User>
     val userScoreList: LiveData<List<User>>
         get() = _userScoreList
-
-//    fun logListUser(listUser: List<User>) {
-//        viewModelScope.launch {
-//            try {
-//                val users = SpaceDimApi.retrofitService.logListUser(listUser)
-//            } catch (e: Exception) {
-//                Log.i(TAG, e.message.toString())
-//            }
-//        }
-//    }
 
     fun listAllUser() {
         viewModelScope.launch {
             try {
                 val listUser = mutableListOf<User>()
-//                Log.i(TAG, "listAllUser: " + SpaceDimApi.retrofitService.listAllUser().toString())
                    val users = SpaceDimApi.retrofitService.listAllUser()
                     for (user in users){
                         if (listUser.size > 10)
                             break
-                        // val userFromAPI = SpaceDimApi.retrofitService.listAllUser()
                 val userName = user.name
                 val userId = user.id
                 val userAvatar = user.avatar
                 val userScore = user.score
                         listUser += User(userId, userName, userAvatar, userScore, State.OVER)
-                        Log.i(TAG, userName)
                         }
                 _userScoreList.postValue(listUser)
             } catch (e: Exception) {
                 println(e)
             }
         }
-        Log.i(TAG, _userScoreList.toString())
-
     }
 
 
